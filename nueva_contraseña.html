@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta Comunidad - Restablecer Contraseña</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            color: #fff;
+        }
+        .container {
+            display: flex;
+            max-width: 800px;
+            background-color: #000;
+        }
+        /* Columna izquierda */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            width: 50%;
+        }
+        .logo img {
+            width: 100px; /* Ajusta el tamaño del logo según sea necesario */
+        }
+        .logo-text {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+        /* Columna derecha */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            width: 50%;
+            background-color: #fff;
+            color: #000;
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        .form-container {
+            text-align: center;
+            width: 100%;
+        }
+        .form-container p {
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        .form-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 30px;
+            border: 1px solid #000;
+            font-size: 16px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .password-hint {
+            font-size: 12px;
+            color: #808080;
+            text-align: left;
+            margin-top: 10px;
+        }
+        .submit-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #000;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Columna izquierda -->
+        <div class="left-column">
+            <div class="logo">
+                <img src="logo.png" alt="Logo de Conecta Comunidad"> <!-- Reemplaza con la URL de tu logo -->
+            </div>
+            <div class="logo-text">CONECTA COMUNIDAD</div>
+        </div>
+
+        <!-- Columna derecha -->
+        <div class="right-column">
+            <div class="form-container">
+                <h1>NUEVA CONTRASEÑA</h1>
+                <p>Crea una nueva contraseña</p>
+                <input type="password" id="nueva-contrasena" placeholder="Nueva contraseña">
+                <p class="password-hint">La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula y un número.</p>
+                <input type="password" id="confirmar-contrasena" placeholder="Escribir nuevamente">
+                <button class="submit-btn" onclick="restablecerContrasena()">RESTABLECER CONTRASEÑA</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function restablecerContrasena() {
+            const nuevaContrasena = document.getElementById('nueva-contrasena').value;
+            const confirmarContrasena = document.getElementById('confirmar-contrasena').value;
+            
+            if (nuevaContrasena.length < 8) {
+                alert("La contraseña debe tener al menos 8 caracteres.");
+            } else if (nuevaContrasena !== confirmarContrasena) {
+                alert("Las contraseñas no coinciden.");
+            } else {
+                alert("Contraseña restablecida exitosamente.");
+                // Aquí puedes añadir la lógica para restablecer la contraseña.
+            }
+        }
+    </script>
+</body>
+</html>

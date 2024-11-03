@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConectaComunidad</title>
+    <style>
+        :root {
+            --purple-button: #9747FF;
+            --dark-bg: #111111;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--purple-button);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .button {
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn {
+            background-color: var(--purple-button);
+            color: white;
+        }
+
+        .register-btn {
+            background-color: var(--purple-button);
+            color: white;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .main-content {
+            display: flex;
+            padding: 4rem 5%;
+            gap: 2rem;
+        }
+
+        .text-content {
+            flex: 1;
+            padding-right: 2rem;
+        }
+
+        .text-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .text-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .features {
+            margin-top: 2rem;
+        }
+
+        .features h2 {
+            margin-bottom: 1rem;
+        }
+
+        .features ul {
+            list-style-type: none;
+        }
+
+        .features li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .features li:before {
+            content: "•";
+            color: var(--purple-button);
+        }
+
+        .image-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <a href="index.html" class="logo-container">
+            <div class="logo">
+                <img src="img/logo.png" alt="Conecta Comunidad">
+            </div>
+            <span>CONECTA COMUNIDAD</span>
+        </a>
+        
+        <div class="nav-links">
+            <a href="index.html" class="active">Inicio</a>
+            <a href="acerca_de.html">Acerca de</a>
+        </div>
+
+        <div class="auth-buttons">
+            <a href="iniciar_secion.html" class="btn">Iniciar Sesión</a>
+            <a href="registro.html" class="btn">Registro</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="text-content">
+            <h1>ACERCA DE CONECTACOMUNIDAD</h1>
+            <p>ConectaComunidad es una plataforma que facilita la colaboración entre organizaciones, individuos y comunidades para el desarrollo de proyectos de impacto social.</p>
+            
+            <div class="features">
+                <h2>Funcionalidades Clave</h2>
+                <ul>
+                    <li>Conexión entre organizaciones y voluntarios para apoyar proyectos.</li>
+                    <li>Recomendaciones personalizadas de recursos y oportunidades.</li>
+                    <li>Soporte técnico y guías para maximizar el uso de la plataforma.</li>
+                </ul>
+            </div>
+
+            <div class="join-section">
+                <h2>Únete y sé Parte del Cambio</h2>
+                <p>Explora ConectaComunidad y empieza a transformar tus ideas en acciones concretas. ¡Sé parte de nuestra red y ayuda a construir un futuro mejor!</p>
+            </div>
+        </div>
+        
+        <div class="image-grid">
+            <img src="/api/placeholder/200/200" alt="Community Connection 1">
+            <img src="/api/placeholder/200/200" alt="Community Connection 2">
+            <img src="/api/placeholder/200/200" alt="Community Connection 3">
+            <img src="/api/placeholder/200/200" alt="Community Connection 4">
+        </div>
+    </main>
+
+    <script>
+        function iniciarSesion() {
+            alert('Iniciando sesión...');
+            // Aquí iría la lógica de inicio de sesión
+        }
+
+        function registro() {
+            alert('Registrando nuevo usuario...');
+            // Aquí iría la lógica de registro
+        }
+
+        function inicio() {
+            window.location.href = '#inicio';
+            // Aquí iría la lógica de navegación al inicio
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta Comunidad - Verificación</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            color: #fff;
+        }
+        .container {
+            display: flex;
+            max-width: 800px;
+            background-color: #000;
+        }
+        /* Columna izquierda */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            width: 50%;
+        }
+        .logo img {
+            width: 100px; /* Ajusta el tamaño del logo según sea necesario */
+        }
+        .logo-text {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+        /* Columna derecha */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            width: 50%;
+            background-color: #fff;
+            color: #000;
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        .form-container {
+            text-align: center;
+            width: 100%;
+        }
+        .form-container p {
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        .form-container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 30px;
+            border: 1px solid #000;
+            font-size: 16px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .resend-code {
+            font-size: 14px;
+            color: #808080;
+            margin-top: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .resend-code:hover {
+            text-decoration: underline;
+        }
+        .submit-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #000;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .submit-btn:hover {
+            background-color: #333;
+        }
+        .note {
+            font-size: 12px;
+            color: #808080;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Columna izquierda -->
+        <div class="left-column">
+            <div class="logo">
+                <img src="logo.png" alt="Logo de Conecta Comunidad"> <!-- Reemplaza con la URL de tu logo -->
+            </div>
+            <div class="logo-text">CONECTA COMUNIDAD</div>
+        </div>
+
+        <!-- Columna derecha -->
+        <div class="right-column">
+            <div class="form-container">
+                <h1>INTRODUCE EL CÓDIGO DE 6 DÍGITOS</h1>
+                <p>Consulta el código de verificación en <strong>persona@gmail.com</strong></p>
+                <input type="text" id="codigo" placeholder="Código 6 dígitos" maxlength="6">
+                <a class="resend-code" onclick="reenviarCodigo()">¿Reenviar código?</a>
+                <button class="submit-btn" onclick="validarCodigo()">ENVIAR</button>
+                <p class="note">
+                    Si no ha recibido el correo de verificación en los próximos minutos, por favor revisar la carpeta de spam o correo no deseado.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function reenviarCodigo() {
+            alert("Se ha reenviado el código a su correo electrónico.");
+            // Aquí puedes añadir la lógica para reenviar el código al correo electrónico.
+        }
+
+        function validarCodigo() {
+            const codigo = document.getElementById('codigo').value;
+            if (codigo === "123456") { // Verifica que el código sea "123456"
+                window.open("nueva_contraseña.html", "_blank"); // Abre nueva pestaña si el código es correcto
+            } else {
+                alert("Código incorrecto. Por favor, intenta nuevamente.");
+            }
+        }
+    </script>
+</body>
+</html>
+
+
