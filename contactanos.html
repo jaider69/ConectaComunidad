@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Conecta Comunidad</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #000;
+        }
+
+        /* Logo */
+        .logo {
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        /* Enlaces de navegación */
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .nav-links a.active {
+            color: #9c4de4;
+            text-decoration: underline;
+        }
+
+        /* Contenido de Contacto */
+        .contact-container {
+            width: 90%;
+            max-width: 800px;
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .contact-info {
+            flex: 1;
+            color: #fff;
+            font-size: 16px;
+            padding-right: 20px;
+        }
+
+        .contact-info a {
+            color: #9c4de4;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Formulario de Contacto */
+        .contact-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .contact-form textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .contact-form button {
+            background-color: #9c4de4;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .contact-form button:hover {
+            background-color: #6b34a4;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #aaa;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Conecta Comunidad Logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="proyectos.html">Proyecto</a>
+            <a href="foro.html">Foro</a>
+            <a href="chat.html">Chat</a>
+            <a href="contactanos.html" class="active">Contáctanos</a>
+            <a href="ayuda.html">Ayuda</a>
+        </div>
+    </div>
+
+    <!-- Contenido de Contacto -->
+    <div class="contact-container">
+        <!-- Información de Contacto -->
+        <div class="contact-info">
+            <p>Utiliza las siguientes vías de contacto, o rellena el formulario.</p>
+            <p>Vía E-mail<br>
+                <a href="mailto:conectacomunidad@gmail.com">conectacomunidad@gmail.com</a>
+            </p>
+            <p>En nuestras redes sociales<br>
+                <a href="https://twitter.com/ConectaComunidad" target="_blank">@ConectaComunidad</a>
+            </p>
+            <p>Por teléfono<br>
+                <a href="tel:911234567">91-1234-567</a>
+            </p>
+        </div>
+
+        <!-- Formulario de Contacto -->
+        <div class="contact-form">
+            <input type="text" id="name" placeholder="Escribe tu nombre" required>
+            <input type="email" id="email" placeholder="Escribe tu e-mail" required>
+            <input type="tel" id="phone" placeholder="Escribe tu teléfono (Opcional)">
+            <textarea id="message" placeholder="Escribe tu mensaje" required></textarea>
+            <button onclick="sendMessage()">ENVIAR MENSAJE</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        2024 - ConectaComunidad - Política de Privacidad
+    </footer>
+
+    <script>
+        function sendMessage() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (name && email && message) {
+                alert('Mensaje enviado. ¡Gracias por contactarnos, ' + name + '!');
+                document.getElementById('name').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('message').value = '';
+            } else {
+                alert('Por favor, completa todos los campos requeridos.');
+            }
+        }
+    </script>
+
+</body>
+</html>

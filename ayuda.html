@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta Comunidad</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            color: #b3b3b3;
+        }
+
+        .navbar a.active {
+            color: #b3b3ff;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #b3b3b3;
+        }
+
+        .video-container {
+            background-color: #3c3c56;
+            border-radius: 8px;
+            margin: 50px auto;
+            width: 400px;
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .play-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #d62839;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .video-controls {
+            width: 80%;
+            height: 5px;
+            background-color: #b3b3b3;
+            border-radius: 5px;
+            margin: 20px auto 0;
+            position: relative;
+        }
+
+        .video-controls::before {
+            content: '';
+            width: 10%;
+            height: 100%;
+            background-color: #d62839;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 5px;
+        }
+
+        .video-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #ffe600;
+            font-size: 20px;
+        }
+
+        .star-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #00c1d4;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo.png" alt="Conecta Comunidad" width="120">
+        <nav class="navbar">
+            <a href="#">Inicio</a>
+            <a href="#">Proyecto</a>
+            <a href="#">Foro</a>
+            <a href="#">Chat</a>
+            <a href="#">Contáctanos</a>
+            <a href="#" class="active">Ayuda</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="title">Cómo usar conecta comunidad</h1>
+        <p class="subtitle">Aprende a sacar el máximo provecho de nuestra aplicación para conectar con tu comunidad</p>
+
+        <div class="video-container">
+            <span class="video-icon">⬤</span>
+            <div class="play-icon">▶</div>
+            <div class="video-controls"></div>
+            <span class="star-icon">⭐</span>
+        </div>
+    </main>
+
+</body>
+</html>

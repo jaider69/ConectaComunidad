@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Conecta Comunidad</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #000;
+        }
+
+        /* Logo */
+        .logo {
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        /* Enlaces de navegación */
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .nav-links a.active {
+            color: #9c4de4;
+            text-decoration: underline;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            width: 90%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        .chat-header {
+            text-align: center;
+            font-size: 24px;
+            margin: 10px 0;
+            color: #fff;
+        }
+
+        .chat-box {
+            background-color: #111;
+            padding: 20px;
+            border-radius: 10px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .message {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .message .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #4b4b4b;
+            text-align: center;
+            line-height: 40px;
+            font-size: 20px;
+            color: #fff;
+            margin-right: 10px;
+        }
+
+        .message-text {
+            padding: 10px;
+            border-radius: 20px;
+            max-width: 70%;
+            font-size: 14px;
+        }
+
+        .message-sent .message-text {
+            background: linear-gradient(45deg, #9c4de4, #4b4bff);
+            color: #fff;
+            align-self: flex-end;
+        }
+
+        .message-received .message-text {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .timestamp {
+            font-size: 10px;
+            color: #ccc;
+            margin-top: 5px;
+        }
+
+        /* Input Area */
+        .input-area {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .input-area input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            margin-right: 10px;
+        }
+
+        .input-area button {
+            background-color: #9c4de4;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Conecta Comunidad Logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="proyectos.html">Proyecto</a>
+            <a href="foro.html">Foro</a>
+            <a href="chat.html" class="active">Chat</a>
+            <a href="contactanos.html">Contáctanos</a>
+            <a href="ayuda.html">Ayuda</a>
+        </div>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <h2 class="chat-header">Chat entre Alice y Carla</h2>
+        <div class="chat-box" id="chatBox">
+            <div class="message message-sent">
+                <div class="avatar">👤</div>
+                <div>
+                    <div class="message-text">Hola Alice, ¿cómo estás?</div>
+                    <div class="timestamp">10:05 AM</div>
+                </div>
+            </div>
+            <div class="message message-received">
+                <div class="avatar">👩</div>
+                <div>
+                    <div class="message-text">Hola Carla, estoy bien. ¿Y tú?</div>
+                    <div class="timestamp">10:07 AM</div>
+                </div>
+            </div>
+            <div class="message message-sent">
+                <div class="avatar">👤</div>
+                <div>
+                    <div class="message-text">Muy bien gracias. ¿Qué planes tienes para hoy?</div>
+                    <div class="timestamp">10:10 AM</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Escribe un mensaje...">
+            <button onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const chatBox = document.getElementById('chatBox');
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value.trim();
+
+            if (messageText !== "") {
+                // Crear el mensaje de usuario
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', 'message-sent');
+                messageElement.innerHTML = `
+                    <div class="avatar">👤</div>
+                    <div>
+                        <div class="message-text">${messageText}</div>
+                        <div class="timestamp">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                    </div>
+                `;
+
+                // Agregar el mensaje al chat
+                chatBox.appendChild(messageElement);
+                messageInput.value = "";
+
+                // Desplazar hacia abajo
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+    </script>
+
+</body>
+</html>
