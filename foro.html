@@ -23,46 +23,48 @@
             position: relative;
         }
 
-        /* Logo centrado */
-        .logo {
-            display: block;
-            text-align: center;
-            margin-bottom: 10px;
+        .navbar img {
+            max-width: 200px;  /* Limita el tamaño máximo del logo */
+            height: auto;
+            margin-bottom: 20px;  /* Añade un espacio debajo del logo */
         }
 
-        .logo img {
-            height: 40px;
-        }
-
-        /* Enlaces de navegación centrados */
-        .nav-links {
+        nav {
             display: flex;
-            gap: 15px;
             justify-content: center;
+            gap: 20px;
+            padding: 10px 0;
         }
 
-        .nav-links a {
-            color: #fff;
+        nav a {
+            color: #FFF;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
+            padding-bottom: 5px;
         }
 
-        .nav-links a.active {
-            color: #9c4de4;
-            text-decoration: underline;
+        nav a:hover,
+        nav a.active {
+            color: #9c4be7;
+            border-bottom: 2px solid #9c4be7;
         }
 
-        /* Icono de perfil en la esquina superior derecha */
-        .profile-icon {
+        .user-icon {
             position: absolute;
             top: 20px;
             right: 20px;
-            font-size: 24px;
-            color: #fff;
-            border: 2px solid #fff;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #FFF;
             border-radius: 50%;
-            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-icon img {
+            width: 20px;
+            height: 20px;
         }
 
         /* Foro Header */
@@ -142,21 +144,23 @@
 </head>
 <body>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="logo">
-            <img src="logo.png" alt="Conecta Comunidad Logo">
+    <header class="header">
+        <img src="logo.png" alt="Conecta Comunidad Logo">
+        <!-- Barra de navegación -->
+        <nav class="navbar">
+            <div class="nav-links">
+                <a href="bienvenido.html" class="active">inicio</a> &nbsp;
+                <a href="proyectos.html">proyectos</a> &nbsp;
+                <a href="foro.html">foro</a> &nbsp;
+                <a href="chat.html">chat</a> &nbsp;
+                <a href="contactanos.html">contactanos</a> &nbsp;
+                <a href="ayuda.html">ayuda</a>
+            </div>
+        </nav>
+        <div class="user-icon">
+            <img src="user-icon.png" alt="User Icon">
         </div>
-        <div class="nav-links">
-            <a href="index.html">Inicio</a>
-            <a href="proyectos.html">Proyecto</a>
-            <a href="foro.html" class="active">Foro</a>
-            <a href="chat.html">Chat</a>
-            <a href="contactanos.html">Contáctanos</a>
-            <a href="ayuda.html">Ayuda</a>
-        </div>
-        <div class="profile-icon">👤</div>
-    </div>
+    </header>
 
     <!-- Foro Header -->
     <h1 class="foro-header">Foro</h1>
@@ -206,3 +210,4 @@
 
 </body>
 </html>
+

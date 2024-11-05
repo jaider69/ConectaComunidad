@@ -14,27 +14,25 @@
             text-align: center;
         }
 
-        .navbar {
+        nav {
             display: flex;
             justify-content: center;
             gap: 20px;
-            padding: 20px;
+            padding: 10px 0;
         }
 
-        .navbar a {
-            color: #fff;
+        nav a {
+            color: #FFF;
             text-decoration: none;
             font-size: 18px;
+            padding-bottom: 5px;
         }
 
-        .navbar a:hover {
-            color: #b3b3b3;
+        nav a:hover,
+        nav a.active {
+            color: #9c4be7;
+            border-bottom: 2px solid #9c4be7;
         }
-
-        .navbar a.active {
-            color: #b3b3ff;
-        }
-
         .title {
             font-size: 36px;
             font-weight: bold;
@@ -105,22 +103,48 @@
             color: #00c1d4;
             font-size: 24px;
         }
+        .user-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #FFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-icon img {
+            width: 20px;
+            height: 20px;
+        }
+    
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="logo.png" alt="Conecta Comunidad" width="120">
-        <nav class="navbar">
-            <a href="#">Inicio</a>
-            <a href="#">Proyecto</a>
-            <a href="#">Foro</a>
-            <a href="#">Chat</a>
-            <a href="#">Contáctanos</a>
-            <a href="#" class="active">Ayuda</a>
-        </nav>
-    </header>
+    <header class="header">
+        <img src="logo.png" alt="Conecta Comunidad Logo">
+        <!-- Barra de navegación -->
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="bienvenido.html">inicio</a> &nbsp;
+            <a href="proyectos.html">proyectos</a> &nbsp;
+            <a href="foro.html">foro</a> &nbsp;
+            <a href="chat.html">chat</a> &nbsp;
+            <a href="contactanos.html">contactanos</a> &nbsp;
+            <a href="ayuda.html"class="active">ayuda</a>
+        </div>
+        
 
+    </nav>
+        <div class="user-icon">
+            <img src="user-icon.png" alt="User Icon">
+        </div>
+    </header>
+   
     <main>
         <h1 class="title">Cómo usar conecta comunidad</h1>
         <p class="subtitle">Aprende a sacar el máximo provecho de nuestra aplicación para conectar con tu comunidad</p>

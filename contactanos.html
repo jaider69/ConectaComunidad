@@ -37,22 +37,24 @@
         }
 
         /* Enlaces de navegación */
-        .nav-links {
+        nav {
             display: flex;
-            gap: 15px;
             justify-content: center;
+            gap: 20px;
+            padding: 10px 0;
         }
 
-        .nav-links a {
-            color: #fff;
+        nav a {
+            color: #FFF;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
+            padding-bottom: 5px;
         }
 
-        .nav-links a.active {
-            color: #9c4de4;
-            text-decoration: underline;
+        nav a:hover,
+        nav a.active {
+            color: #9c4be7;
+            border-bottom: 2px solid #9c4be7;
         }
 
         /* Contenido de Contacto */
@@ -131,20 +133,25 @@
 </head>
 <body>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="logo">
-            <img src="logo.png" alt="Conecta Comunidad Logo">
-        </div>
+    <header class="header">
+        <img src="logo.png" alt="Conecta Comunidad Logo">
+        <!-- Barra de navegación -->
+    <nav class="navbar">
         <div class="nav-links">
-            <a href="index.html">Inicio</a>
-            <a href="proyectos.html">Proyecto</a>
-            <a href="foro.html">Foro</a>
-            <a href="chat.html">Chat</a>
-            <a href="contactanos.html" class="active">Contáctanos</a>
-            <a href="ayuda.html">Ayuda</a>
+            <a href="bienvenido.html">inicio</a> &nbsp;
+            <a href="proyectos.html">proyectos</a> &nbsp;
+            <a href="foro.html">foro</a> &nbsp;
+            <a href="chat.html">chat</a> &nbsp;
+            <a href="contactanos.html"class="active">contactanos</a> &nbsp;
+            <a href="ayuda.html">ayuda</a>
         </div>
-    </div>
+        
+
+    </nav>
+        <div class="user-icon">
+            <img src="user-icon.png" alt="User Icon">
+        </div>
+    </header>
 
     <!-- Contenido de Contacto -->
     <div class="contact-container">
