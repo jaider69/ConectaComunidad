@@ -29,8 +29,12 @@
             padding: 20px;
             width: 50%;
         }
+        .logo {
+            text-align: center;
+            margin-right: 80px;
+        }
         .logo img {
-            width: 100px; /* Ajusta el tamaño del logo según sea necesario */
+            width: 350px; /* Ajusta el tamaño del logo según sea necesario */
         }
         .logo-text {
             margin-top: 20px;
@@ -96,7 +100,6 @@
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            text-align: center;
         }
         .submit-btn:hover {
             background-color: #333;
@@ -113,9 +116,8 @@
         <!-- Columna izquierda -->
         <div class="left-column">
             <div class="logo">
-                <img src="logo.png" alt="Logo de Conecta Comunidad"> <!-- Reemplaza con la URL de tu logo -->
+                <img src="imagenes/logo.jpeg" alt="Logo de Conecta Comunidad"> <!-- Reemplaza con la URL de tu logo -->
             </div>
-            <div class="logo-text">CONECTA COMUNIDAD</div>
         </div>
 
         <!-- Columna derecha -->
@@ -124,8 +126,10 @@
                 <h1>INTRODUCE EL CÓDIGO DE 6 DÍGITOS</h1>
                 <p>Consulta el código de verificación en <strong>persona@gmail.com</strong></p>
                 <input type="text" id="codigo" placeholder="Código 6 dígitos" maxlength="6">
-                <a class="resend-code" onclick="reenviarCodigo()">¿Reenviar código?</a>
-                <button class="submit-btn" onclick="validarCodigo()">ENVIAR</button>
+                <!-- Enlace para reenviar el código -->
+                <a href="javascript:void(0);" class="resend-code" onclick="reenviarCodigo()">¿Reenviar código?</a>
+                <!-- Botón de enviar código -->
+                <button class="submit-btn" onclick="enviarCodigo()">ENVIAR</button>
                 <p class="note">
                     Si no ha recibido el correo de verificación en los próximos minutos, por favor revisar la carpeta de spam o correo no deseado.
                 </p>
@@ -135,20 +139,14 @@
 
     <script>
         function reenviarCodigo() {
+            // Aquí puedes añadir la lógica para reenviar el código al correo electrónico
             alert("Se ha reenviado el código a su correo electrónico.");
-            // Aquí puedes añadir la lógica para reenviar el código al correo electrónico.
         }
 
-        function validarCodigo() {
-            const codigo = document.getElementById('codigo').value;
-            if (codigo === "123456") { // Verifica que el código sea "123456"
-                window.open("nueva_contraseña.html", "_blank"); // Abre nueva pestaña si el código es correcto
-            } else {
-                alert("Código incorrecto. Por favor, intenta nuevamente.");
-            }
+        function enviarCodigo() {
+            // Redirige a la página "nueva_contraseña.html" en la misma ventana
+            window.location.href = "nueva_contraseña.html";
         }
     </script>
 </body>
 </html>
-
-

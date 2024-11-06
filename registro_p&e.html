@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 50px;
+            text-align: center;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-right: 80px;
+        }
+        .logo-section img {
+            width: 350px; /* Ajusta el tamaño del logo según sea necesario */
+        }
+
+        .logo-section h1 {
+            margin-top: 30px;
+            font-size: 34px;
+            letter-spacing: 2px;
+        }
+
+        .form-section {
+            background-color: #fff;
+            color: #000;
+            padding: 40px;
+            border-radius: 20px;
+            width: 350px;
+            text-align: center;
+        }
+
+        .form-section h2 {
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .form-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            width: 55%;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            background-color: #000;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background-color: #333;
+        }
+
+        .login-link {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .login-link a {
+            color: #69A6E3;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <img src="imagenes/logo.jpeg" alt="Conecta Comunidad Logo">
+
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-section">
+            <h2>Registro</h2>
+            <p>Antes de registrarse, elija su tipo de cuenta</p>
+            <div class="button-group">
+                <button class="button" onclick="window.open('registro_persona.html')">Persona</button>
+                <button class="button" onclick="window.open('registro_empresa.html')">Empresa</button>
+            </div>
+            <div class="login-link">
+                ¿Ya estás registrado? <a href="iniciar_secion.html">Iniciar sesión</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -97,9 +97,8 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            width: 40px;
-            height: 40px;
-            border: 2px solid #FFF;
+            width: 50px; /* Aumenté el tamaño */
+            height: 50px; /* Aumenté el tamaño */
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -107,30 +106,33 @@
         }
 
         .user-icon img {
-            width: 20px;
-            height: 20px;
+            width: 70px;
+            height: 40px;
         }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <img src="logo.png" alt="Conecta Comunidad Logo">
+        <img src="imagenes/logo1.jpeg" alt="Conecta Comunidad Logo">Conecta Comunidad
+       
         <!-- Barra de navegación -->
-    <nav class="navbar">
-        <div class="nav-links">
-            <a href="bienvenido.html"class="active">inicio</a> &nbsp;
-            <a href="proyectos.html">proyectos</a> &nbsp;
-            <a href="foro.html">foro</a> &nbsp;
-            <a href="chat.html">chat</a> &nbsp;
-            <a href="contactanos.html">contactanos</a> &nbsp;
-            <a href="ayuda.html">ayuda</a>
-        </div>
-        
+        <nav class="navbar">
+            <div class="nav-links">
+                <a href="bienvenido.html" class="active">inicio</a> &nbsp;
+                <a href="proyectos.html">proyectos</a> &nbsp;
+                <a href="foro.html">foro</a> &nbsp;
+                <a href="chat.html">chat</a> &nbsp;
+                <a href="contactanos.html">contactanos</a> &nbsp;
+                <a href="ayuda.html">ayuda</a>
+            </div>
+        </nav>
 
-    </nav>
+        <!-- Icono de usuario que redirige al perfil o página de usuario en una nueva pestaña -->
         <div class="user-icon">
-            <img src="user-icon.png" alt="User Icon">
+            <a href="index.html" target="_blank">
+                <img src="imagenes/usuario.jpeg" alt="User Icon">
+            </a>
         </div>
     </header>
 

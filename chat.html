@@ -19,24 +19,6 @@
         /* Navbar */
         .navbar {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            background-color: #000;
-        }
-
-        /* Logo */
-        .logo {
-            display: block;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .logo img {
-            height: 40px;
-        }
-        nav {
-            display: flex;
             justify-content: center;
             gap: 20px;
             padding: 10px 0;
@@ -53,6 +35,24 @@
         nav a.active {
             color: #9c4be7;
             border-bottom: 2px solid #9c4be7;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centrar el logo y el texto horizontalmente */
+            gap: 10px; /* Espacio entre logo y texto */
+            margin-top: 10px;
+        }
+
+        .header img {
+            width: 40px;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
         }
 
         /* Chat Container */
@@ -145,28 +145,51 @@
             cursor: pointer;
         }
 
+        /* User Icon */
+        .user-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px; /* Aumenté el tamaño */
+    height: 30px; /* Aumenté el tamaño */
+    background-color: #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px; /* Aumenté el tamaño de la fuente */
+    color: #fff;
+    border: none; /* Elimino cualquier borde */
+}
+
+
+        .user-icon img {
+            width: 70px;
+            height: 40px;
+        }
     </style>
 </head>
 <body>
     <header class="header">
-        <img src="logo.png" alt="Conecta Comunidad Logo">
-        <!-- Barra de navegación -->
-    <nav class="navbar">
-        <div class="nav-links">
-            <a href="bienvenido.html"class="active">inicio</a> &nbsp;
-            <a href="proyectos.html">proyectos</a> &nbsp;
-            <a href="foro.html">foro</a> &nbsp;
-            <a href="chat.html">chat</a> &nbsp;
-            <a href="contactanos.html">contactanos</a> &nbsp;
-            <a href="ayuda.html">ayuda</a>
-        </div>
-        
-
-    </nav>
-        <div class="user-icon">
-            <img src="user-icon.png" alt="User Icon">
-        </div>
+        <img src="imagenes/logo1.jpeg" alt="Conecta Comunidad Logo">
+        <div class="header-title">Conecta Comunidad</div>
     </header>
+    
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <a href="bienvenido.html" >inicio</a>
+        <a href="proyectos.html">proyectos</a>
+        <a href="foro.html">foro</a>
+        <a href="chat.html"class="active">chat</a>
+        <a href="contactanos.html">contactanos</a>
+        <a href="ayuda.html">ayuda</a>
+    </nav>
+    
+    <div class="user-icon">
+        <a href="index.html" target="_blank"></a>
+        <img src="imagenes/usuario.jpeg" alt="User Icon">
+    </div>
+    
     <!-- Chat Container -->
     <div class="chat-container">
         <h2 class="chat-header">Chat entre Alice y Carla</h2>

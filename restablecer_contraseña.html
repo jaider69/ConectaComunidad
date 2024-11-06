@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conecta Comunidad - Verificación</title>
+    <title>Conecta Comunidad - Restablecer Contraseña</title>
     <style>
         body {
             margin: 0;
@@ -29,8 +29,12 @@
             padding: 20px;
             width: 50%;
         }
+        .logo {
+            text-align: center;
+            margin-right: 80px;
+        }
         .logo img {
-            width: 100px; /* Ajusta el tamaño del logo según sea necesario */
+            width: 350px; /* Ajusta el tamaño del logo según sea necesario */
         }
         .logo-text {
             margin-top: 20px;
@@ -75,35 +79,30 @@
             text-align: center;
             box-sizing: border-box;
         }
-        .resend-code {
-            font-size: 14px;
-            color: #808080;
-            margin-top: 10px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .resend-code:hover {
-            text-decoration: underline;
-        }
-        .submit-btn {
+        .submit-btn, .back-btn {
             margin-top: 20px;
             width: 100%;
             padding: 10px;
             font-size: 16px;
             font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+        .submit-btn {
             color: #fff;
             background-color: #000;
             border: none;
-            border-radius: 30px;
-            cursor: pointer;
         }
         .submit-btn:hover {
             background-color: #333;
         }
-        .note {
-            font-size: 12px;
-            color: #808080;
-            margin-top: 20px;
+        .back-btn {
+            color: #000;
+            background-color: #fff;
+            border: 1px solid #000;
+        }
+        .back-btn:hover {
+            background-color: #f0f0f0;
         }
     </style>
 </head>
@@ -112,45 +111,32 @@
         <!-- Columna izquierda -->
         <div class="left-column">
             <div class="logo">
-                <img src="logo.png" alt="Logo de Conecta Comunidad"> <!-- Reemplaza con la URL de tu logo -->
+                <img src="imagenes/logo.jpeg" alt="Logo de Conecta Comunidad"> <!-- Reemplaza con la URL de tu logo -->
             </div>
-            <div class="logo-text">CONECTA COMUNIDAD</div>
         </div>
 
         <!-- Columna derecha -->
         <div class="right-column">
             <div class="form-container">
-                <h1>INTRODUCE EL CÓDIGO DE 6 DÍGITOS</h1>
-                <p>Consulta el código de verificación en <strong>persona@gmail.com</strong></p>
-                <input type="text" id="codigo" placeholder="Código 6 dígitos" maxlength="6">
-                <a class="resend-code" onclick="reenviarCodigo()">¿Reenviar código?</a>
-                <button class="submit-btn" onclick="enviarCodigo()">ENVIAR</button>
-                <p class="note">
-                    Si no ha recibido el correo de verificación en los próximos minutos, por favor revisar la carpeta de spam o correo no deseado.
-                </p>
+                <h1>RESTABLECER CONTRASEÑA</h1>
+                <input type="text" id="email" placeholder="Correo electrónico">
+                <p>Enviaremos un código de verificación de 6 dígitos a este email.</p>
+                <button class="submit-btn" onclick="siguiente()">SIGUIENTE</button>
+                <button class="back-btn" onclick="volver()">VOLVER</button>
             </div>
         </div>
     </div>
 
     <script>
-        function reenviarCodigo() {
-            alert("Se ha reenviado el código a su correo electrónico.");
-            // Aquí puedes añadir la lógica para reenviar el código al correo electrónico.
+        function siguiente() {
+            alert("Se ha enviado el código de verificación a su correo.");
+            // Aquí puedes añadir la lógica para enviar el código al correo electrónico.
+            window.location.href = "verificacion.html"; // Abre la página en la misma ventana
         }
 
-        function enviarCodigo() {
-            const codigo = document.getElementById('codigo').value;
-            if (codigo.length === 6) {
-                alert("Código enviado: " + codigo);
-                // Aquí puedes añadir la lógica para validar el código de verificación.
-            } else {
-                alert("Por favor, ingresa un código de 6 dígitos.");
-            }
+        function volver() {
+            window.location.href = "iniciar_secion.html"; // Regresa a la página de inicio de sesión en la misma ventana
         }
     </script>
 </body>
 </html>
-
-
-
-

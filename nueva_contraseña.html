@@ -29,15 +29,14 @@
             padding: 20px;
             width: 50%;
         }
-        .logo img {
-            width: 100px; /* Ajusta el tamaño del logo según sea necesario */
-        }
-        .logo-text {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
+        .logo {
             text-align: center;
+            margin-right: 80px;
         }
+        .logo img {
+            width: 350px; /* Ajusta el tamaño del logo según sea necesario */
+        }
+        
         /* Columna derecha */
         .right-column {
             display: flex;
@@ -103,9 +102,8 @@
         <!-- Columna izquierda -->
         <div class="left-column">
             <div class="logo">
-                <img src="logo.png" alt="Logo de Conecta Comunidad"> <!-- Reemplaza con la URL de tu logo -->
+                <img src="imagenes/logo.jpeg" alt="Logo de Conecta Comunidad"> <!-- Reemplaza con la URL de tu logo -->
             </div>
-            <div class="logo-text">CONECTA COMUNIDAD</div>
         </div>
 
         <!-- Columna derecha -->
@@ -123,17 +121,8 @@
 
     <script>
         function restablecerContrasena() {
-            const nuevaContrasena = document.getElementById('nueva-contrasena').value;
-            const confirmarContrasena = document.getElementById('confirmar-contrasena').value;
-            
-            if (nuevaContrasena.length < 8) {
-                alert("La contraseña debe tener al menos 8 caracteres.");
-            } else if (nuevaContrasena !== confirmarContrasena) {
-                alert("Las contraseñas no coinciden.");
-            } else {
-                alert("Contraseña restablecida exitosamente.");
-                // Aquí puedes añadir la lógica para restablecer la contraseña.
-            }
+            // Redirige a "iniciar_secion.html" en la misma ventana
+            window.location.href = 'iniciar_secion.html';
         }
     </script>
 </body>
