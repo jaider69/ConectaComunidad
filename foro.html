@@ -44,7 +44,6 @@
             border-bottom: 2px solid #9c4be7;
         }
 
-
         .profile-icon {
             position: absolute;
             top: 20px;
@@ -126,67 +125,69 @@
 </head>
 <body>
     <header class="header">
-        <img src="imagenes/logo1.jpeg" alt="Conecta Comunidad Logo" class >Conecta Comunidad
-    <nav class="navbar">
-        <div class="nav-links">
-            <a href="bienvenido.html">inicio</a> &nbsp;
-            <a href="proyectos.html">proyectos</a> &nbsp;
-            <a href="foro.html">foro</a> &nbsp;
-            <a href="chat.html">chat</a> &nbsp;
-            <a href="contactanos.html">contactanos</a> &nbsp;
-            <a href="ayuda.html">ayuda</a>
-        </div>
-        
-
-    </nav>
-        <!-- Icono de perfil en la esquina superior derecha -->
+        <img src="imagenes/logo1.jpeg" alt="Conecta Comunidad Logo">
+        <nav class="navbar">
+            <div class="nav-links">
+                <a href="bienvenido.html">Inicio</a>&nbsp;
+                <a href="proyectos.html">Proyectos</a>&nbsp;
+                <a href="foro.html" class="active">Foro</a>&nbsp;
+                <a href="chat.html">Chat</a>&nbsp;
+                <a href="contactanos.html">Contactanos</a>&nbsp;
+                <a href="ayuda.html">Ayuda</a>&nbsp;
+            </div>
+        </nav>
         <img src="imagenes/usuario.jpeg" alt="Icono de perfil" class="profile-icon">
-    
+    </header>
 
     <div class="foro">
         <h1>Foro</h1>
 
         <div class="foro-item">
-            <img src="salud-bienestar.jpg" alt="Salud y Bienestar">
+            <img src="imagenes/salud.jpeg" alt="Salud y Bienestar">
             <div>
                 <h2>Salud y bienestar</h2>
                 <p>La nutrición adecuada, la salud mental, la gestión del estrés...</p>
-                <button>VER MÁS</button>
+                <button onclick="navigateTo('Categoria_foro.html')">VER MÁS</button>
             </div>
         </div>
 
         <div class="foro-item">
-            <img src="cultura-sociedad.jpg" alt="Cultura y Sociedad">
+            <img src="imagenes/salud.jpeg" alt="Cultura y Sociedad">
             <div>
                 <h2>Cultura y sociedad</h2>
                 <p>Explorar y discutir diversos aspectos de la cultura y la sociedad...</p>
-                <button>VER MÁS</button>
+                <button onclick="navigateTo('Categoria_foro.html')">VER MÁS</button>
             </div>
         </div>
 
         <div class="foro-item">
-            <img src="educacion.jpg" alt="Educación">
+            <img src="imagenes/salud.jpeg" alt="Educación">
             <div>
                 <h2>Educación</h2>
                 <p>Conocimientos sobre métodos educativos, experiencias...</p>
-                <button>VER MÁS</button>
+                <button onclick="navigateTo('Categoria_foro.html')">VER MÁS</button>
             </div>
         </div>
 
         <div class="foro-item">
-            <img src="emprendimiento.jpg" alt="Emprendimiento">
+            <img src="imagenes/salud.jpeg" alt="Emprendimiento">
             <div>
                 <h2>Emprendimiento</h2>
                 <p>Los aspirantes a emprendedores y propietarios de pequeños negocios...</p>
-                <button>VER MÁS</button>
+                <button onclick="navigateTo('Categoria_foro.html')">VER MÁS</button>
             </div>
         </div>
 
-        <div class="add-topic">AÑADIR NUEVO TEMA</div>
+        <div class="add-topic" onclick="window.location.href='añadir_tema.html';">AÑADIR NUEVO TEMA</div>
     </div>
 
-    <!-- Icono del robot en la esquina inferior derecha -->
-    <img src="robot-icon.png" alt="Icono del robot" class="robot-icon">
+    <img src="imagenes/robot.jpeg" alt="Icono del robot" class="robot-icon">
 
+    <script>
+        function navigateTo(url) {
+            window.location.href = url; // Cambia a una nueva página en la misma pestaña
+        }
+    </script>
 </body>
 </html>
+

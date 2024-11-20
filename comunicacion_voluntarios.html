@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicación con Voluntarios</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Contenedor principal */
+        .container {
+            text-align: center;
+            padding: 30px 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            background-color: #111;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        /* Título principal */
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+
+        /* Subtítulo */
+        p {
+            font-size: 1em;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        /* Campos de entrada */
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            color: #000;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 120px;
+        }
+
+        /* Botón */
+        button {
+            background-color: #800080;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 15px 25px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #993399;
+        }
+
+        /* Decoraciones */
+        .decor-star {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+        }
+
+        .decor-triangle {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo -->
+        <img src="logo.png" alt="Logo Conecta Comunidad" style="width: 100px; margin-bottom: 20px;">
+
+        <!-- Título -->
+        <h1>Comunicación con Voluntarios</h1>
+        <p>Colabora financieramente o con recursos para proyectos.</p>
+
+        <!-- Formulario -->
+        <form onsubmit="redirigir(event)">
+            <input type="text" placeholder="Categoría del proyecto de interés" required>
+            <textarea placeholder="Mensaje del voluntario" required></textarea>
+            <button onclick="location.href='proyectos.html'">ENVIAR</button>
+
+        </form>
+
+    </div>
+
+    <script>
+        function redirigir(event) {
+            event.preventDefault(); // Evita el envío del formulario
+            window.location.href = "proyectos.html"; // Abre la página "gracias.html" en la misma pestaña
+        }
+    </script>
+</body>
+</html>

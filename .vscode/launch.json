@@ -17,26 +17,8 @@
             "request": "attach",
             "type": "msedge",
             "webRoot": "${workspaceFolder}"
-        },
-        {
-            "name": "Launch Edge",
-            "request": "launch",
-            "type": "msedge",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "name": "Attach to Edge",
-            "port": 9222,
-            "request": "attach",
-            "type": "msedge",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "type": "msedge",
-            "request": "launch",
-            "name": "Open iniciar_secion.html",
-            "file": "c:\\Users\\jaider leonardo\\ConectaComunidad\\iniciar_secion.html"
         }
+    
+     
     ]
 }

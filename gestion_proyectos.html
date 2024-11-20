@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Proyectos</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Contenedor principal */
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            background-color: #111;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        /* Contenido izquierdo (Formulario) */
+        .form-section {
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Encabezado */
+        .form-section h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .form-section p {
+            font-size: 1em;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 90%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            color: #000;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        /* Separador vertical */
+        .divider {
+            width: 1px;
+            background-color: #555;
+            margin: 0 20px;
+        }
+
+        /* Botones */
+        .button-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .button-section button {
+            background-color: #800080;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 15px 25px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .button-section button:hover {
+            background-color: #993399;
+        }
+
+        /* Decoraciones */
+        .decor-star {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+        }
+
+        .decor-triangle {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+        }
+
+        .icon-user {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sección del formulario -->
+        <div class="form-section">
+          
+            <h1>Gestión de proyectos</h1>
+            <form>
+                <input type="text" placeholder="Nombre del proyecto" required>
+                <textarea placeholder="Breve descripción del proyecto" required></textarea>
+            </form>
+        </div>
+
+        <!-- Separador -->
+        <div class="divider"></div>
+
+        <!-- Sección de botones -->
+        <div class="button-section">
+            <button onclick="accion('subir')">SUBIR PROYECTO</button>
+            <button onclick="accion('borrar')">BORRAR</button>
+            <button onclick="accion('editar')">EDITAR</button>
+            <button onclick="accion('cancelar')">CANCELAR</button>
+        </div>
+
+        <!-- Decoraciones -->
+      
+    </div>
+
+    <script>
+        function accion(tipo) {
+            alert(`Acción seleccionada: ${tipo}`);
+            // Redirigir según la acción (personaliza estas rutas)
+            if (tipo === 'subir') {
+                window.location.href = "informacio.html";
+            } else if (tipo === 'borrar') {
+                window.location.href = "proyectos.html";
+            } else if (tipo === 'editar') {
+                window.location.href = "proyectos.html";
+            } else if (tipo === 'cancelar') {
+                window.location.href = "proyectos.html";
+            }
+        }
+    </script>
+</body>
+</html>
