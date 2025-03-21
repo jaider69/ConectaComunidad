@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Proyectos</title>
     <style>
-        /* Estilos generales */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -17,7 +16,6 @@
             height: 100vh;
         }
 
-        /* Contenedor principal */
         .container {
             display: flex;
             flex-direction: row;
@@ -32,23 +30,15 @@
             position: relative;
         }
 
-        /* Contenido izquierdo (Formulario) */
         .form-section {
             flex: 1;
             text-align: center;
         }
 
-        /* Encabezado */
         .form-section h1 {
             font-size: 2em;
             margin-bottom: 20px;
             font-weight: bold;
-        }
-
-        .form-section p {
-            font-size: 1em;
-            color: #aaa;
-            margin-bottom: 30px;
         }
 
         input[type="text"],
@@ -67,14 +57,26 @@
             height: 100px;
         }
 
-        /* Separador vertical */
+        .image-preview {
+            width: 90%;
+            max-height: 200px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+
         .divider {
             width: 1px;
             background-color: #555;
             margin: 0 20px;
         }
 
-        /* Botones */
         .button-section {
             display: flex;
             flex-direction: column;
@@ -97,69 +99,89 @@
             background-color: #993399;
         }
 
-        /* Decoraciones */
-        .decor-star {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 50px;
+        .file-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
         }
 
-        .decor-triangle {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            width: 50px;
+        input[type="file"] {
+            display: none;
         }
 
-        .icon-user {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
+        .custom-file-upload {
+            background-color: #800080;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #993399;
+        }
+
+        .file-name {
+            color: #fff;
+            font-size: 0.9em;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Sección del formulario -->
         <div class="form-section">
-          
             <h1>Gestión de proyectos</h1>
             <form>
                 <input type="text" placeholder="Nombre del proyecto" required>
                 <textarea placeholder="Breve descripción del proyecto" required></textarea>
+                <div class="file-upload">
+                    <label for="imageUpload" class="custom-file-upload">Seleccionar archivo</label>
+                    <input type="file" id="imageUpload" accept="image/*" onchange="previewImage(event)">
+                    <span id="fileName" class="file-name"></span>
+                </div>
+                <div class="image-preview">
+                    <img id="imagePreview" src="" alt="Vista previa">
+                </div>
             </form>
         </div>
-
-        <!-- Separador -->
+        
         <div class="divider"></div>
-
-        <!-- Sección de botones -->
+        
         <div class="button-section">
             <button onclick="accion('subir')">SUBIR PROYECTO</button>
             <button onclick="accion('borrar')">BORRAR</button>
             <button onclick="accion('editar')">EDITAR</button>
             <button onclick="accion('cancelar')">CANCELAR</button>
         </div>
-
-        <!-- Decoraciones -->
-      
     </div>
 
     <script>
         function accion(tipo) {
             alert(`Acción seleccionada: ${tipo}`);
-            // Redirigir según la acción (personaliza estas rutas)
             if (tipo === 'subir') {
                 window.location.href = "informacio.html";
-            } else if (tipo === 'borrar') {
-                window.location.href = "proyectos.html";
-            } else if (tipo === 'editar') {
-                window.location.href = "proyectos.html";
-            } else if (tipo === 'cancelar') {
+            } else {
                 window.location.href = "proyectos.html";
             }
+        }
+
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const image = document.getElementById('imagePreview');
+                image.src = reader.result;
+                image.style.display = 'block';
+            }
+            reader.readAsDataURL(event.target.files[0]);
+            
+            const fileNameDisplay = document.getElementById('fileName');
+            fileNameDisplay.textContent = event.target.files[0] ? event.target.files[0].name : '';
         }
     </script>
 </body>
