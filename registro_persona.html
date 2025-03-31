@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro Persona</title>
     <style>
+        /* Tus estilos originales se mantienen igual */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -105,17 +106,69 @@
         <!-- Form Section -->
         <div class="form-section">
             <h2>Registro Persona</h2>
-            <input type="text" class="input-field" placeholder="Nombre Completo" required>
-            <input type="text" class="input-field" placeholder="Número de Identificación" required>
-            <input type="text" class="input-field" placeholder="Teléfono de contacto" required>
-            <input type="email" class="input-field" placeholder="Correo" required>
-            <input type="password" class="input-field" placeholder="Contraseña" required>
-            <button class="submit-button" onclick="window.location.href='iniciar_secion.html'">Aceptar y Continuar</button>
-            <div class="checkbox-container">
-                <input type="checkbox" id="terms" required>
-                <label for="terms">Aceptar los términos, condiciones y políticas de ConectaComunidad y política de privacidad</label>
-            </div>
+            <form id="registro-persona-form">
+                <input type="text" class="input-field" id="nombre" placeholder="Nombre Completo" required>
+                <input type="text" class="input-field" id="identificacion" placeholder="Número de Identificación" required>
+                <input type="text" class="input-field" id="telefono" placeholder="Teléfono de contacto" required>
+                <input type="email" class="input-field" id="email" placeholder="Correo" required>
+                <input type="password" class="input-field" id="password" placeholder="Contraseña" required>
+                <button type="submit" class="submit-button">Aceptar y Continuar</button>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">Aceptar los términos, condiciones y políticas de ConectaComunidad y política de privacidad</label>
+                </div>
+            </form>
         </div>
     </div>
+
+    <!-- Script modificado para conectar con el backend Python -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('registro-persona-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Mostrar loader (opcional)
+                const button = e.target.querySelector('button[type="submit"]');
+                const originalText = button.textContent;
+                button.textContent = 'Registrando...';
+                button.disabled = true;
+
+                try {
+                    // Obtener valores del formulario
+                    const formData = {
+                        nombre: document.getElementById('nombre').value,
+                        dni: document.getElementById('identificacion').value,
+                        telefono: document.getElementById('telefono').value,
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value
+                    };
+
+                    // Enviar datos al backend Python (Flask)
+                    const response = await fetch('http://localhost:5000/registro', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        alert('¡Registro exitoso! Revisa tu correo para confirmar.');
+                        window.location.href = 'iniciar_secion.html';
+                    } else {
+                        alert('Error: ' + result.error);
+                    }
+                } catch (error) {
+                    alert('Error de conexión: ' + error.message);
+                } finally {
+                    // Restaurar botón
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }
+            });
+        });
+    </script>
 </body>
 </html>
