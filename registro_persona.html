@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro Persona</title>
+    <link rel="icon" href="data:,"> <!-- Elimina error 404 favicon -->
     <style>
-        /* Tus estilos originales se mantienen igual */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -94,6 +94,35 @@
         .checkbox-container input {
             margin-right: 14px;
         }
+
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .success-message {
+            color: green;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #000;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -107,12 +136,17 @@
         <div class="form-section">
             <h2>Registro Persona</h2>
             <form id="registro-persona-form">
+                <div id="error-message" class="error-message" style="display: none;"></div>
+                <div id="success-message" class="success-message" style="display: none;"></div>
                 <input type="text" class="input-field" id="nombre" placeholder="Nombre Completo" required>
                 <input type="text" class="input-field" id="identificacion" placeholder="Número de Identificación" required>
                 <input type="text" class="input-field" id="telefono" placeholder="Teléfono de contacto" required>
                 <input type="email" class="input-field" id="email" placeholder="Correo" required>
-                <input type="password" class="input-field" id="password" placeholder="Contraseña" required>
-                <button type="submit" class="submit-button">Aceptar y Continuar</button>
+                <input type="password" class="input-field" id="password" placeholder="Contraseña" minlength="6" required>
+                <button type="submit" class="submit-button">
+                    <span id="button-text">Aceptar y Continuar</span>
+                    <span id="button-loader" class="loader" style="display: none;"></span>
+                </button>
                 <div class="checkbox-container">
                     <input type="checkbox" id="terms" required>
                     <label for="terms">Aceptar los términos, condiciones y políticas de ConectaComunidad y política de privacidad</label>
@@ -121,51 +155,92 @@
         </div>
     </div>
 
-    <!-- Script modificado para conectar con el backend Python -->
+    <!-- Scripts al final del body para mejor rendimiento -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('registro-persona-form').addEventListener('submit', async (e) => {
+        // Configuración garantizada para evitar errores de inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Inicialización de Supabase
+            const supabaseUrl = 'https://ywfxblbdenirocfwexpz.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3ZnhibGJkZW5pcm9jZndleHB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMzNjA0MTMsImV4cCI6MjA1ODkzNjQxM30.Vtd1VLKoOS7l_cIdtm7Rdhg-to7gA4jzZjk-TZNdaIA';
+            const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+            // 2. Configuración del formulario
+            const form = document.getElementById('registro-persona-form');
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+            const buttonText = document.getElementById('button-text');
+            const buttonLoader = document.getElementById('button-loader');
+
+            form.addEventListener('submit', async function(e) {
                 e.preventDefault();
 
-                // Mostrar loader (opcional)
-                const button = e.target.querySelector('button[type="submit"]');
-                const originalText = button.textContent;
-                button.textContent = 'Registrando...';
-                button.disabled = true;
+                // Estado de carga
+                buttonText.textContent = 'Registrando';
+                buttonLoader.style.display = 'inline-block';
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+                form.querySelector('button[type="submit"]').disabled = true;
 
                 try {
                     // Obtener valores del formulario
-                    const formData = {
+                    const userData = {
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value,
                         nombre: document.getElementById('nombre').value,
                         dni: document.getElementById('identificacion').value,
-                        telefono: document.getElementById('telefono').value,
-                        email: document.getElementById('email').value,
-                        password: document.getElementById('password').value
+                        telefono: document.getElementById('telefono').value
                     };
 
-                    // Enviar datos al backend Python (Flask)
-                    const response = await fetch('http://localhost:5000/registro', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formData)
+                    // 1. Registrar usuario en Auth
+                    const { data: authData, error: authError } = await supabase.auth.signUp({
+                        email: userData.email,
+                        password: userData.password
                     });
 
-                    const result = await response.json();
+                    if (authError) throw authError;
 
-                    if (result.success) {
-                        alert('¡Registro exitoso! Revisa tu correo para confirmar.');
+                    // 2. Insertar en tabla 'persona' - ESTRUCTURA EXACTA DE TU TABLA
+                    const { data, error } = await supabase
+                        .from('persona')
+                        .insert([{
+                            auth_id: authData.user.id,  // PRIMARY KEY que referencia auth.users
+                            nombre: userData.nombre,    // TEXT NOT NULL
+                            dni: userData.dni,          // TEXT NOT NULL
+                            telefono: userData.telefono,// TEXT NOT NULL
+                            correo_electr: userData.email // TEXT NOT NULL
+                            // created_at se auto-genera (TIMESTAMPTZ DEFAULT now())
+                        }])
+                        .select();
+
+                    if (error) throw error;
+
+                    // Éxito - muestra mensaje y redirige
+                    successMessage.textContent = '¡Registro exitoso! Revisa tu correo para confirmar.';
+                    successMessage.style.display = 'block';
+                    
+                    setTimeout(() => {
                         window.location.href = 'iniciar_secion.html';
-                    } else {
-                        alert('Error: ' + result.error);
-                    }
+                    }, 3000);
+
                 } catch (error) {
-                    alert('Error de conexión: ' + error.message);
-                } finally {
+                    console.error('Error:', error);
+                    
+                    // Mensajes de error específicos
+                    let errorMsg = 'Error al registrar. Por favor intenta nuevamente.';
+                    if (error.message.includes('User already registered')) {
+                        errorMsg = 'Este correo ya está registrado';
+                    } else if (error.message.includes('violates row-level security')) {
+                        errorMsg = 'Error de permisos. Contacta al administrador.';
+                    }
+                    
+                    errorMessage.textContent = errorMsg;
+                    errorMessage.style.display = 'block';
+                    
                     // Restaurar botón
-                    button.textContent = originalText;
-                    button.disabled = false;
+                    buttonText.textContent = 'Aceptar y Continuar';
+                    buttonLoader.style.display = 'none';
+                    form.querySelector('button[type="submit"]').disabled = false;
                 }
             });
         });

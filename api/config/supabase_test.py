@@ -12,16 +12,16 @@ supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 try:
     # 1. Registrar usuario en Auth (opcional, si necesitas el auth_id real)
     auth_response = supabase.auth.sign_up({
-        "email": "jaider@gmail.com",
-        "password": "123456"
+        "email": "jaider55@gmail.com",
+        "password": "123456j"
     })
     
     # 2. Insertar en 'persona' con UUID válido
     data, count = supabase.table('persona').insert({
-        "nombre": "jaider",
-        "dni": "123456789",
-        "telefono": "3001234567",
-        "correo_electr": "jaider@gmail.com",
+        "nombre": "jaide",
+        "dni": "12345678",
+        "telefono": "30012354567",
+        "correo_electr": "jaider55@gmail.com",
         "auth_id": auth_response.user.id  # UUID real
         # O usa str(uuid4()) para pruebas sin Auth
     }).execute()
