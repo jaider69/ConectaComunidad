@@ -10,10 +10,9 @@
             color: #fff;
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            height: 100vh;
         }
 
         /* Navbar */
@@ -22,17 +21,18 @@
             justify-content: center;
             gap: 20px;
             padding: 10px 0;
+            background-color: #111;
         }
 
-        nav a {
+        .navbar a {
             color: #FFF;
             text-decoration: none;
             font-size: 18px;
             padding-bottom: 5px;
         }
 
-        nav a:hover,
-        nav a.active {
+        .navbar a:hover,
+        .navbar a.active {
             color: #9c4be7;
             border-bottom: 2px solid #9c4be7;
         }
@@ -41,9 +41,10 @@
         .header {
             display: flex;
             align-items: center;
-            justify-content: center; /* Centrar el logo y el texto horizontalmente */
-            gap: 10px; /* Espacio entre logo y texto */
-            margin-top: 10px;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            background-color: #111;
         }
 
         .header img {
@@ -55,117 +56,116 @@
             font-weight: bold;
         }
 
-        /* Chat Container */
-        .chat-container {
-            width: 90%;
-            max-width: 600px;
-            margin-top: 20px;
+        .container {
+            display: flex;
+            flex: 1;
         }
 
-        .chat-header {
+        .sidebar {
+            width: 25%;
+            background-color: #111;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h3 {
             text-align: center;
-            font-size: 24px;
-            margin: 10px 0;
-            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .search-bar {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+
+        .chat-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .chat-list li {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #333;
+        }
+
+        .chat-list li:hover {
+            background-color: #222;
+        }
+
+        .chat-container {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            display: none;
+        }
+
+        .chat-placeholder {
+            width: 75%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #777;
         }
 
         .chat-box {
+            flex-grow: 1;
             background-color: #111;
             padding: 20px;
             border-radius: 10px;
-            max-height: 500px;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
         .message {
-            display: flex;
-            align-items: center;
             margin: 10px 0;
-        }
-
-        .message .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #4b4b4b;
-            text-align: center;
-            line-height: 40px;
-            font-size: 20px;
-            color: #fff;
-            margin-right: 10px;
-        }
-
-        .message-text {
             padding: 10px;
-            border-radius: 20px;
-            max-width: 70%;
-            font-size: 14px;
+            border-radius: 10px;
+            max-width: 60%;
+            word-wrap: break-word;
         }
 
-        .message-sent .message-text {
+        .sent {
+            align-self: flex-end;
             background: linear-gradient(45deg, #9c4de4, #4b4bff);
             color: #fff;
-            align-self: flex-end;
         }
 
-        .message-received .message-text {
+        .received {
+            align-self: flex-start;
             background-color: #333;
             color: #fff;
         }
 
-        .timestamp {
-            font-size: 10px;
-            color: #ccc;
-            margin-top: 5px;
-        }
-
-        /* Input Area */
         .input-area {
             display: flex;
-            align-items: center;
-            margin-top: 15px;
+            padding: 10px 0;
         }
 
-        .input-area input[type="text"] {
+        .input-area input {
             flex: 1;
             padding: 10px;
-            border-radius: 20px;
+            border-radius: 5px;
             border: none;
             outline: none;
-            margin-right: 10px;
         }
 
         .input-area button {
-            background-color: #9c4de4;
-            border: none;
+            background-color: #9c4be7;
             color: #fff;
-            font-size: 20px;
-            padding: 8px;
-            border-radius: 50%;
+            border: none;
+            padding: 10px;
+            margin-left: 10px;
+            border-radius: 5px;
             cursor: pointer;
-        }
-
-        /* User Icon */
-        .user-icon {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 50px; /* Aumenté el tamaño */
-    height: 30px; /* Aumenté el tamaño */
-    background-color: #333;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px; /* Aumenté el tamaño de la fuente */
-    color: #fff;
-    border: none; /* Elimino cualquier borde */
-}
-
-
-        .user-icon img {
-            width: 70px;
-            height: 40px;
         }
     </style>
 </head>
@@ -174,83 +174,76 @@
         <img src="imagenes/logo1.jpeg" alt="Conecta Comunidad Logo">
         <div class="header-title">Conecta Comunidad</div>
     </header>
-    
-    <!-- Barra de navegación -->
-    <nav class="navbar">
-        <a href="bienvenido.html" >inicio</a>
-        <a href="proyectos.html">proyectos</a>
-        <a href="foro.html">foro</a>
-        <a href="chat.html"class="active">chat</a>
-        <a href="contactanos.html">contactanos</a>
-        <a href="ayuda.html">ayuda</a>
-    </nav>
-    
-    <div class="user-icon">
-        <a href="index.html" target="_blank"></a>
-        <img src="imagenes/usuario.jpeg" alt="User Icon">
-    </div>
-    
-    <!-- Chat Container -->
-    <div class="chat-container">
-        <h2 class="chat-header">Chat entre Alice y Carla</h2>
-        <div class="chat-box" id="chatBox">
-            <div class="message message-sent">
-                <div class="avatar">👤</div>
-                <div>
-                    <div class="message-text">Hola Alice, ¿cómo estás?</div>
-                    <div class="timestamp">10:05 AM</div>
-                </div>
-            </div>
-            <div class="message message-received">
-                <div class="avatar">👩</div>
-                <div>
-                    <div class="message-text">Hola Carla, estoy bien. ¿Y tú?</div>
-                    <div class="timestamp">10:07 AM</div>
-                </div>
-            </div>
-            <div class="message message-sent">
-                <div class="avatar">👤</div>
-                <div>
-                    <div class="message-text">Muy bien gracias. ¿Qué planes tienes para hoy?</div>
-                    <div class="timestamp">10:10 AM</div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Input Area -->
-        <div class="input-area">
-            <input type="text" id="messageInput" placeholder="Escribe un mensaje...">
-            <button onclick="sendMessage()">➤</button>
+    <nav class="navbar">
+        <a href="bienvenido.html">Inicio</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="foro.html">Foro</a>
+        <a href="chat.html" class="active">Chat</a>
+        <a href="contactanos.html">Contáctanos</a>
+        <a href="ayuda.html">Ayuda</a>
+    </nav>
+
+    <div class="container">
+        <div class="sidebar">
+            <input type="text" class="search-bar" placeholder="Buscar chats..." oninput="filterChats()">
+            <h3>Amigos</h3>
+            <ul class="chat-list" id="chatList">
+                <li onclick="loadChat('Alice')">Alice</li>
+                <li onclick="loadChat('Carla')">Carla</li>
+            </ul>
+        </div>
+        
+        <div class="chat-placeholder" id="chatPlaceholder">Chatea con tus amigos</div>
+        
+        <div class="chat-container" id="chatContainer">
+            <h2 id="chat-header">Chat</h2>
+            <div class="chat-box" id="chatBox"></div>
+            <div class="input-area">
+                <input type="text" id="messageInput" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">Enviar</button>
+            </div>
         </div>
     </div>
 
     <script>
-        function sendMessage() {
-            const chatBox = document.getElementById('chatBox');
-            const messageInput = document.getElementById('messageInput');
-            const messageText = messageInput.value.trim();
+        let currentChat = '';
 
-            if (messageText !== "") {
-                // Crear el mensaje de usuario
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message', 'message-sent');
-                messageElement.innerHTML = `
-                    <div class="avatar">👤</div>
-                    <div>
-                        <div class="message-text">${messageText}</div>
-                        <div class="timestamp">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-                    </div>
-                `;
+        function loadChat(user) {
+            currentChat = user;
+            document.getElementById('chatPlaceholder').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('chat-header').innerText = 'Chat con ' + user;
+            document.getElementById('chatBox').innerHTML = ''; 
+        }
 
-                // Agregar el mensaje al chat
-                chatBox.appendChild(messageElement);
-                messageInput.value = "";
-
-                // Desplazar hacia abajo
-                chatBox.scrollTop = chatBox.scrollHeight;
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                sendMessage();
             }
         }
-    </script>
 
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const chatBox = document.getElementById('chatBox');
+            const messageText = messageInput.value.trim();
+            
+            if (messageText !== "") {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', 'sent');
+                messageElement.innerText = messageText;
+                chatBox.appendChild(messageElement);
+                messageInput.value = "";
+            }
+        }
+
+        function filterChats() {
+            let input = document.querySelector(".search-bar").value.toLowerCase();
+            let chats = document.querySelectorAll(".chat-list li");
+            chats.forEach(chat => {
+                chat.style.display = chat.textContent.toLowerCase().includes(input) ? "block" : "none";
+            });
+        }
+    </script>
 </body>
 </html>

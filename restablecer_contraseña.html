@@ -20,7 +20,6 @@
             max-width: 800px;
             background-color: #000;
         }
-        /* Columna izquierda */
         .left-column {
             display: flex;
             flex-direction: column;
@@ -34,15 +33,8 @@
             margin-right: 80px;
         }
         .logo img {
-            width: 350px; /* Ajusta el tamaño del logo según sea necesario */
+            width: 350px;
         }
-        .logo-text {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-        }
-        /* Columna derecha */
         .right-column {
             display: flex;
             flex-direction: column;
@@ -69,7 +61,11 @@
             margin-bottom: 20px;
             color: #000;
         }
-        .form-container input[type="text"] {
+        .input-container {
+            width: 100%;
+            text-align: center;
+        }
+        .input-container input {
             width: 100%;
             padding: 10px;
             margin-top: 10px;
@@ -78,6 +74,11 @@
             font-size: 16px;
             text-align: center;
             box-sizing: border-box;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
         }
         .submit-btn, .back-btn {
             margin-top: 20px;
@@ -108,34 +109,54 @@
 </head>
 <body>
     <div class="container">
-        <!-- Columna izquierda -->
         <div class="left-column">
             <div class="logo">
-                <img src="imagenes/logo.jpeg" alt="Logo de Conecta Comunidad"> <!-- Reemplaza con la URL de tu logo -->
+                <img src="imagenes/logo.jpeg" alt="Logo de Conecta Comunidad">
             </div>
         </div>
-
-        <!-- Columna derecha -->
         <div class="right-column">
             <div class="form-container">
                 <h1>RESTABLECER CONTRASEÑA</h1>
-                <input type="text" id="email" placeholder="Correo electrónico">
+                <div class="input-container">
+                    <input type="text" id="email" placeholder="Correo electrónico">
+                    <div id="error-email" class="error-message"></div>
+                </div>
                 <p>Enviaremos un código de verificación de 6 dígitos a este email.</p>
                 <button class="submit-btn" onclick="siguiente()">SIGUIENTE</button>
                 <button class="back-btn" onclick="volver()">VOLVER</button>
             </div>
         </div>
     </div>
-
     <script>
+        document.getElementById("email").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                siguiente();
+            }
+        });
+        
         function siguiente() {
+            var emailInput = document.getElementById("email");
+            var errorElement = document.getElementById("error-email");
+            var emailValue = emailInput.value.trim();
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (emailValue === "") {
+                errorElement.textContent = "Ingresa una dirección de correo electrónico ";
+                return;
+            }
+            if (!emailRegex.test(emailValue)) {
+                errorElement.textContent = "El formato del correo es incorrecto. Por favor, utilice un formato válido (ej. usuario@dominio.com).";
+                return;
+            }
+            
+            errorElement.textContent = "";
             alert("Se ha enviado el código de verificación a su correo.");
-            // Aquí puedes añadir la lógica para enviar el código al correo electrónico.
-            window.location.href = "verificacion.html"; // Abre la página en la misma ventana
+            window.location.href = "verificacion.html";
         }
-
+        
         function volver() {
-            window.location.href = "iniciar_secion.html"; // Regresa a la página de inicio de sesión en la misma ventana
+            window.location.href = "iniciar_secion.html";
         }
     </script>
 </body>

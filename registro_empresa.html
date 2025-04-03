@@ -1,128 +1,319 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Registro Empresa</title>
-        <style>
-            * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-                font-family: Arial, sans-serif;
-            }
-            
-            body {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-                background-color: #000;
-                color: #fff;
-            }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro Empresa</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
     
-            .container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: #000;
-                padding: 20px;
-                border-radius: 10px;
-            }
+    body {
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
     
-            .logo-section {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin-right: 50px;
-                text-align: center;
-            }
-            .logo-section {
-                text-align: center;
-                margin-right: 200px;
-            }
+    .container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: #000;
+      border-radius: 10px;
+      max-width: 1000px;
+      width: 100%;
+    }
     
-            .logo-section img {
-                width: 350px;
-            }
+    .logo-section {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
     
-            
+    .logo-section img {
+      width: 300px;
+      height: auto;
+    }
     
-            .form-section {
-                background-color: #fff;
-                color: #000;
-                padding: 40px;
-                border-radius: 20px;
-                width: 400px;
-                text-align: center;
-            }
+    .form-section {
+      background-color: #fff;
+      color: #000;
+      padding: 30px;
+      border-radius: 15px;
+      width: 400px;
+      text-align: center;
+      margin: 20px;
+      position: relative;
+    }
     
-            .form-section h2 {
-                font-size: 20px;
-                margin-bottom: 20px;
-            }
+    .form-section h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
     
-            .input-field {
-                width: 95%;
-                padding: 10px;
-                margin-bottom: 20px;
-                border: 1px solid #000;
-                border-radius: 20px;
-                font-size: 16px;
-            }
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
     
-            .submit-button {
-                width: 95%;
-                padding: 10px;
-                border: none;
-                border-radius: 20px;
-                background-color: #000;
-                color: #fff;
-                font-size: 16px;
-                cursor: pointer;
-                text-transform: uppercase;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      padding-right: 40px; /* espacio para el ícono en contraseña */
+      border: 1px solid #000;
+      border-radius: 20px;
+      font-size: 16px;
+    }
     
-            .submit-button:hover {
-                background-color: #333;
-            }
+    .input-wrapper {
+      position: relative;
+    }
     
-            .checkbox-container {
-                display: flex;
-                align-items: center;
-                font-size: 15px;
-                color: #555;
-            }
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      user-select: none;
+      font-size: 18px;
+    }
     
-            .checkbox-container input {
-                margin-right: 14px;
-            }
-        </style>
-    </head>
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+      text-align: left;
+    }
+    
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    
+    .checkbox-container input {
+      margin-right: 8px;
+    }
+    
+    .terms-error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+      text-align: left;
+    }
+    
+    .submit-button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 20px;
+      background-color: #000;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    
+    .submit-button:hover {
+      background-color: #333;
+    }
+    
+    /* Responsividad para pantallas más pequeñas */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .logo-section, .form-section {
+        margin: 10px;
+      }
+      
+      .form-section {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
 <body>
-    <div class="container">
-        <!-- Logo Section -->
-        <div class="logo-section">
-            <img src="imagenes/logo.jpeg" alt="Conecta Comunidad Logo">
-            
-        </div>
-
-        <!-- Form Section -->
-        <div class="form-section">
-            <h2>Registro Empresa</h2>
-            <input type="text" class="input-field" placeholder="Nombre Empresa">
-            <input type="text" class="input-field" placeholder="N.I.T">
-            <input type="text" class="input-field" placeholder="Teléfono de contacto">
-            <input type="email" class="input-field" placeholder="Correo">
-            <input type="password" class="input-field" placeholder="Contraseña">
-            <button class="submit-button" onclick="window.open('iniciar_secion.html')">Aceptar y Continuar</button >
-            <div class="checkbox-container">
-                <input type="checkbox" id="terms">
-                <label for="terms">Aceptar los términos, condiciones y políticas de ConectaComunidad y política de privacidad</label>
-            </div>
-        </div>
+  <div class="container">
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <img src="imagenes/logo.jpeg" alt="Conecta Comunidad Logo">
     </div>
+    
+    <!-- Form Section -->
+    <div class="form-section">
+      <h2>Registro Empresa</h2>
+      <form id="registroForm" action="procesar_registro_empresa.php" method="POST" novalidate>
+        <!-- Nombre Empresa -->
+        <div class="input-group">
+          <input type="text" name="nombre_empresa" class="input-field" placeholder="Nombre Empresa" required>
+          <div class="error-message" id="error-nombre_empresa"></div>
+        </div>
+    
+        <!-- N.I.T -->
+        <div class="input-group">
+          <input type="text" name="nit" class="input-field" placeholder="N.I.T" required>
+          <div class="error-message" id="error-nit"></div>
+        </div>
+    
+        <!-- Teléfono de contacto -->
+        <div class="input-group">
+          <input type="text" name="telefono" class="input-field" placeholder="Teléfono de contacto" pattern="[0-9]{7,15}" title="Ingrese solo números (mínimo 7 y máximo 15 dígitos)" required>
+          <div class="error-message" id="error-telefono"></div>
+        </div>
+    
+        <!-- Correo -->
+        <div class="input-group">
+          <input type="email" name="correo" class="input-field" placeholder="Correo" required>
+          <div class="error-message" id="error-correo"></div>
+        </div>
+    
+        <!-- Contraseña -->
+        <div class="input-group">
+          <div class="input-wrapper">
+            <input type="password" name="contrasena" id="contrasena" class="input-field" placeholder="Contraseña" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, una minúscula y un número" required>
+            <span class="toggle-password" id="toggle-contrasena" onclick="togglePassword('contrasena', 'toggle-contrasena')">👁️‍🗨️</span>
+          </div>
+          <div class="error-message" id="error-contrasena"></div>
+        </div>
+    
+        <!-- Confirmar Contraseña -->
+        <div class="input-group">
+          <div class="input-wrapper">
+            <input type="password" name="confirmar_contrasena" id="confirmar_contrasena" class="input-field" placeholder="Confirmar Contraseña" required>
+            <span class="toggle-password" id="toggle-confirmar" onclick="togglePassword('confirmar_contrasena', 'toggle-confirmar')">👁️‍🗨️</span>
+          </div>
+          <div class="error-message" id="error-confirmar"></div>
+        </div>
+    
+        <!-- Términos y Condiciones -->
+        <div class="checkbox-container">
+          <input type="checkbox" id="terms" name="terms" required>
+          <label for="terms">Aceptar los términos, condiciones y políticas de ConectaComunidad y política de privacidad</label>
+        </div>
+        <div class="terms-error" id="error-terms"></div>
+        
+        <button type="submit" class="submit-button">Registrarse</button>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    // Función para alternar visibilidad de contraseña y cambiar el icono
+    function togglePassword(fieldId, toggleId) {
+      var field = document.getElementById(fieldId);
+      var toggleIcon = document.getElementById(toggleId);
+      if (field.type === "password") {
+        field.type = "text";
+        toggleIcon.textContent = "👁";
+      } else {
+        field.type = "password";
+        toggleIcon.textContent = "👁️‍🗨️";
+      }
+    }
+    
+    // Función de validación: si el campo está vacío, mostrar "Este campo es obligatorio."
+    function validateField(input) {
+      // Evitar validar checkboxes
+      if (input.type === 'checkbox') return;
+      var errorElement = document.getElementById("error-" + input.name);
+      if (!errorElement) return;
+      if (input.required && input.value.trim() === "") {
+        errorElement.textContent = "Este campo es obligatorio.";
+        return;
+      }
+      if (!input.checkValidity()) {
+        if (input.name === "correo") {
+          errorElement.textContent = "El formato del correo es incorrecto. Por favor, utilice un formato válido (ej. usuario@dominio.com).";
+        } else {
+          errorElement.textContent = input.title || "Campo inválido.";
+        }
+      } else {
+        errorElement.textContent = "";
+      }
+    }
+    
+    // Validación inmediata en cada campo (evento onblur)
+    document.querySelectorAll('input').forEach(function(input) {
+      input.addEventListener('blur', function() {
+        validateField(input);
+      });
+    });
+    
+    // Navegación con Enter: mover el foco entre inputs (excluyendo checkboxes) y, en el último, enviar el formulario
+    const nonCheckboxInputs = Array.from(document.querySelectorAll('input')).filter(input => input.type !== 'checkbox');
+    nonCheckboxInputs.forEach(function(input, index, inputs) {
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          if (index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          } else {
+            // Si es el último campo, se envía el formulario
+            document.getElementById('registroForm').dispatchEvent(new Event('submit'));
+          }
+        }
+      });
+    });
+    
+    // Validación en envío del formulario
+    document.getElementById('registroForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevenir envío inmediato
+      
+      // Limpiar mensajes previos
+      document.getElementById('error-nombre_empresa').textContent = "";
+      document.getElementById('error-nit').textContent = "";
+      document.getElementById('error-telefono').textContent = "";
+      document.getElementById('error-correo').textContent = "";
+      document.getElementById('error-contrasena').textContent = "";
+      document.getElementById('error-confirmar').textContent = "";
+      document.getElementById('error-terms').textContent = "";
+      
+      var formValid = true;
+      var inputs = document.querySelectorAll('input');
+      inputs.forEach(function(input) {
+        if (input.type !== "checkbox") {
+          validateField(input);
+          if (!input.checkValidity()) {
+            formValid = false;
+          }
+        }
+      });
+      
+      // Validar confirmación de contraseña
+      var contrasena = document.getElementById('contrasena').value;
+      var confirmar = document.getElementById('confirmar_contrasena').value;
+      if (contrasena !== confirmar) {
+        document.getElementById('error-confirmar').textContent = "Las contraseñas no coinciden.";
+        formValid = false;
+      }
+      
+      // Validar checkbox de términos
+      if (!document.getElementById('terms').checked) {
+        document.getElementById('error-terms').textContent = "Debe aceptar los términos y condiciones.";
+        formValid = false;
+      }
+      
+      if (formValid) {
+        alert("Registro exitoso");
+        window.location.href = "iniciar_secion.html";
+      }
+    });
+  </script>
 </body>
 </html>

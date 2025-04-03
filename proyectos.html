@@ -12,77 +12,102 @@
             color: #fff;
             text-align: center;
         }
-
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
         nav {
             display: flex;
             justify-content: center;
             gap: 20px;
             padding: 10px 0;
         }
-
         nav a {
             color: #FFF;
             text-decoration: none;
             font-size: 18px;
             padding-bottom: 5px;
         }
-
         nav a:hover,
         nav a.active {
             color: #9c4be7;
             border-bottom: 2px solid #9c4be7;
         }
-
-        .header {
-            margin: 20px 0;
-            position: relative;
-        }
-
         .header img {
             width: 40px;
             vertical-align: middle;
         }
-
+        .search-bar {
+            margin: 20px auto;
+            text-align: center;
+            position: relative;
+            width: 60%;
+        }
+        .search-bar input {
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            padding-right: 40px;
+        }
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .search-bar button img {
+            width: 20px;
+        }
         .projects-section {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
             padding: 20px;
         }
-
-        .category {
+        .category-title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: left;
+            margin-top: 30px;
+        }
+        .project-category {
+            margin-bottom: 40px;
+        }
+        .projects-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .project-card {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
             width: 300px;
             text-align: left;
         }
-
-        .category h3 {
-            text-transform: uppercase;
-            color: #fff;
-        }
-
-        .project-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            background-color: #333;
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        .project-item img {
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
-            margin-right: 15px;
-        }
-
-        .project-description {
-            color: #ddd;
-        }
-
-        .view-more-btn {
-            display: block;
+        .project-card img {
             width: 100%;
+            border-radius: 8px;
+        }
+        .project-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .project-description {
+            font-size: 14px;
+            color: #ccc;
+            margin-top: 5px;
+            height: 50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .view-more-btn, .add-project-btn {
+            display: block;
             padding: 10px;
             text-align: center;
             background-color: #A95BF5;
@@ -92,94 +117,126 @@
             font-size: 16px;
             cursor: pointer;
             text-decoration: none;
+            margin-top: 10px;
         }
-
-        .view-more-btn:hover {
-            background-color: #8e4bcc;
-        }
-
-        .user-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
-            background-color: #333;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #fff;
-            
-        }
-
-        .user-icon img {
-            width: 70px;
-            height: 40px;
+        .add-project-btn {
+            width: 200px;
+            margin: 20px auto;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="user-icon">
-            <img src="imagenes/usuario.jpeg" alt="User Icon">
+    <div class="container">
+        <header class="header">
+            <img src="imagenes/logo1.jpeg" alt="Conecta Comunidad Logo"> Conecta Comunidad
+        </header>
+        
+        <nav>
+            <a href="bienvenido.html">Inicio</a>
+            <a href="proyectos.html" class="active">Proyectos</a>
+            <a href="foro.html">Foro</a>
+            <a href="chat.html">Chat</a>
+            <a href="contactanos.html">Contáctanos</a>
+            <a href="ayuda.html">Ayuda</a>
+        </nav>
+        
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Buscar proyectos...">
+            <button onclick="filtrarProyectos()">
+                <img src="imagenes/lupa.png" alt="Buscar">
+            </button>
         </div>
         
-        <img src="imagenes/logo1.jpeg" alt="Conecta Comunidad Logo"> Conecta Comunidad
-       
-        <!-- Barra de navegación -->
-        <nav class="navbar">
-            <div class="nav-links">
-                <a href="bienvenido.html">inicio</a> &nbsp;
-                <a href="proyectos.html" class="active">proyectos</a> &nbsp;
-                <a href="foro.html">foro</a> &nbsp;
-                <a href="chat.html">chat</a> &nbsp;
-                <a href="contactanos.html">contactanos</a> &nbsp;
-                <a href="ayuda.html">ayuda</a>
-            </div>
-        </nav>
-    </header>
-
-    <div class="projects-section">
-        <div class="category">
-            <h3>Salud</h3>
-            <div class="project-item">
-                <img src="imagenes/foto.jpeg" alt="Project Image">
-                <p class="project-description">Una salud sin barreras: nueva propuesta para transformar entre todos el Sistema de Salud en Colombia</p>
-            </div>
-            <div class="project-item">
-                <img src="imagenes/foto.jpeg" alt="Project Image">
-                <p class="project-description">Una salud sin barreras: nueva propuesta para transformar entre todos el Sistema de Salud en Colombia</p>
-            </div>
-            <a href="visual_proyectos.html" class="view-more-btn">VER MÁS</a>
-        </div>
-
-        <div class="category">
-            <h3>Medio Ambiente</h3>
-            <div class="project-item">
-                <img src="imagenes/foto.jpeg" alt="Project Image">
-                <p class="project-description">Una salud sin barreras: nueva propuesta para transformar entre todos el Sistema de Salud en Colombia</p>
-            </div>
-            <div class="project-item">
-                <img src="imagenes/foto.jpeg" alt="Project Image">
-                <p class="project-description">Una salud sin barreras: nueva propuesta para transformar entre todos el Sistema de Salud en Colombia</p>
-            </div>
-            <a href="visual_proyectos.html" class="view-more-btn">VER MÁS</a>
-        </div>
-
-        <div class="category">
-            <h3>Educación</h3>
-            <div class="project-item">
-                <img src="imagenes/foto.jpeg" alt="Project Image">
-                <p class="project-description">Una salud sin barreras: nueva propuesta para transformar entre todos el Sistema de Salud en Colombia</p>
-            </div>
-            <div class="project-item">
-                <img src="imagenes/foto.jpeg" alt="Project Image">
-                <p class="project-description">Una salud sin barreras: nueva propuesta para transformar entre todos el Sistema de Salud en Colombia</p>
-            </div>
-            <a href="visual_proyectos.html" class="view-more-btn">VER MÁS</a>
+        <button class="add-project-btn" onclick="location.href='agregar_proyecto.html'">Agregar Proyecto</button>
+        
+        <div class="projects-section" id="project-list">
+            <!-- Proyectos generados dinámicamente -->
         </div>
     </div>
+    
+    <script>
+        function obtenerProyectos() {
+            return JSON.parse(localStorage.getItem("proyectos")) || [];
+        }
+
+        function agruparPorCategoria(proyectos) {
+            const categorias = {};
+            proyectos.forEach(proyecto => {
+                if (!categorias[proyecto.categoria]) {
+                    categorias[proyecto.categoria] = [];
+                }
+                categorias[proyecto.categoria].push(proyecto);
+            });
+            return categorias;
+        }
+
+        function cargarProyectos(proyectos) {
+            const listaProyectos = document.getElementById("project-list");
+            listaProyectos.innerHTML = "";
+
+            if (proyectos.length === 0) {
+                listaProyectos.innerHTML = "<p>No hay proyectos disponibles.</p>";
+                return;
+            }
+
+            const proyectosPorCategoria = agruparPorCategoria(proyectos);
+
+            for (const categoria in proyectosPorCategoria) {
+                const categoriaDiv = document.createElement("div");
+                categoriaDiv.classList.add("project-category");
+                categoriaDiv.innerHTML = `<p class="category-title">${categoria}</p>`;
+
+                const container = document.createElement("div");
+                container.classList.add("projects-container");
+
+                proyectosPorCategoria[categoria].forEach(proyecto => {
+                    const card = document.createElement("div");
+                    card.classList.add("project-card");
+                    card.innerHTML = `
+                        <img src="${proyecto.imagen}" alt="${proyecto.nombre}">
+                        <p class="project-title">${proyecto.nombre}</p>
+                        <p class="project-description">${proyecto.descripcion.substring(0, 80)}...</p>
+                        <a href="ver_proyecto.html?id=${proyecto.id}" class="view-more-btn">Ver más</a>
+                    `;
+                    container.appendChild(card);
+                });
+
+                categoriaDiv.appendChild(container);
+                listaProyectos.appendChild(categoriaDiv);
+            }
+        }
+
+        function filtrarProyectos() {
+            const filtro = document.getElementById("search").value.toLowerCase().trim();
+            const proyectos = obtenerProyectos();
+
+            if (proyectos.length === 0) {
+                document.getElementById("project-list").innerHTML = "<p>No hay proyectos disponibles.</p>";
+                return;
+            }
+
+            const proyectosFiltrados = proyectos.filter(proyecto => 
+                proyecto.nombre.toLowerCase().includes(filtro) || 
+                proyecto.categoria.toLowerCase().includes(filtro)
+            );
+
+            if (proyectosFiltrados.length === 0) {
+                document.getElementById("project-list").innerHTML = "<p>No se encontraron resultados.</p>";
+                return;
+            }
+
+            cargarProyectos(proyectosFiltrados);
+        }
+
+        window.onload = function() {
+            cargarProyectos(obtenerProyectos());
+        };
+
+        document.getElementById("search").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                filtrarProyectos();
+            }
+        });
+    </script>
 </body>
 </html>

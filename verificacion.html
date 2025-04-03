@@ -1,152 +1,210 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conecta Comunidad - Verificación</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #000;
-            color: #fff;
-        }
-        .container {
-            display: flex;
-            max-width: 800px;
-            background-color: #000;
-        }
-        /* Columna izquierda */
-        .left-column {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            width: 50%;
-        }
-        .logo {
-            text-align: center;
-            margin-right: 80px;
-        }
-        .logo img {
-            width: 350px; /* Ajusta el tamaño del logo según sea necesario */
-        }
-        .logo-text {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-        }
-        /* Columna derecha */
-        .right-column {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            width: 50%;
-            background-color: #fff;
-            color: #000;
-            border-radius: 10px;
-        }
-        h1 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #000;
-        }
-        .form-container {
-            text-align: center;
-            width: 100%;
-        }
-        .form-container p {
-            font-size: 14px;
-            margin-bottom: 20px;
-            color: #000;
-        }
-        .form-container input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 30px;
-            border: 1px solid #000;
-            font-size: 16px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-        .resend-code {
-            font-size: 14px;
-            color: #808080;
-            margin-top: 10px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .resend-code:hover {
-            text-decoration: underline;
-        }
-        .submit-btn {
-            margin-top: 20px;
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #000;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-        .submit-btn:hover {
-            background-color: #333;
-        }
-        .note {
-            font-size: 12px;
-            color: #808080;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conecta Comunidad - Verificación</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000;
+      color: #fff;
+    }
+    .container {
+      display: flex;
+      max-width: 800px;
+      background-color: #000;
+    }
+    /* Columna izquierda */
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      width: 50%;
+    }
+    .logo {
+      text-align: center;
+      margin-right: 80px;
+    }
+    .logo img {
+      width: 350px; /* Ajusta el tamaño del logo según sea necesario */
+    }
+    .logo-text {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+    /* Columna derecha */
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      width: 50%;
+      background-color: #fff;
+      color: #000;
+      border-radius: 10px;
+    }
+    h1 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #000;
+    }
+    .form-container {
+      text-align: center;
+      width: 100%;
+    }
+    .form-container p {
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #000;
+    }
+    .form-container input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 30px;
+      border: 1px solid #000;
+      font-size: 16px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+      text-align: center;
+    }
+    .resend-code {
+      font-size: 14px;
+      color: #808080;
+      margin-top: 10px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .resend-code:hover {
+      text-decoration: underline;
+    }
+    .submit-btn {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #000;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background-color: #333;
+    }
+    .back-btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #000;
+      background-color: #fff;
+      border: 1px solid #000;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    .back-btn:hover {
+      background-color: #f0f0f0;
+    }
+    .note {
+      font-size: 12px;
+      color: #808080;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Columna izquierda -->
-        <div class="left-column">
-            <div class="logo">
-                <img src="imagenes/logo.jpeg" alt="Logo de Conecta Comunidad"> <!-- Reemplaza con la URL de tu logo -->
-            </div>
-        </div>
-
-        <!-- Columna derecha -->
-        <div class="right-column">
-            <div class="form-container">
-                <h1>INTRODUCE EL CÓDIGO DE 6 DÍGITOS</h1>
-                <p>Consulta el código de verificación en <strong>persona@gmail.com</strong></p>
-                <input type="text" id="codigo" placeholder="Código 6 dígitos" maxlength="6">
-                <!-- Enlace para reenviar el código -->
-                <a href="javascript:void(0);" class="resend-code" onclick="reenviarCodigo()">¿Reenviar código?</a>
-                <!-- Botón de enviar código -->
-                <button class="submit-btn" onclick="enviarCodigo()">ENVIAR</button>
-                <p class="note">
-                    Si no ha recibido el correo de verificación en los próximos minutos, por favor revisar la carpeta de spam o correo no deseado.
-                </p>
-            </div>
-        </div>
+  <div class="container">
+    <!-- Columna izquierda -->
+    <div class="left-column">
+      <div class="logo">
+        <img src="imagenes/logo.jpeg" alt="Logo de Conecta Comunidad">
+      </div>
     </div>
+    <!-- Columna derecha -->
+    <div class="right-column">
+      <div class="form-container">
+        <h1>INTRODUCE EL CÓDIGO DE 6 DÍGITOS</h1>
+        <p>Consulta el código de verificación en tu correo electrónico <strong></strong></p>
+        <input type="text" id="codigo" placeholder="Código 6 dígitos" maxlength="6" onkeypress="handleKeyPress(event)">
+        <div id="error-codigo" class="error-message"></div>
+        <!-- Enlace para reenviar el código -->
+        <a href="javascript:void(0);" class="resend-code" onclick="reenviarCodigo()">¿Reenviar código?</a>
+        <!-- Botón de enviar código -->
+        <button class="submit-btn" onclick="enviarCodigo()">ENVIAR</button>
+        <!-- Botón de volver -->
+        <button class="back-btn" onclick="volver()">VOLVER</button>
+        <p class="note">
+          Si no ha recibido el correo de verificación en los próximos minutos, por favor revise la carpeta de spam o correo no deseado.
+        </p>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        function reenviarCodigo() {
-            // Aquí puedes añadir la lógica para reenviar el código al correo electrónico
-            alert("Se ha reenviado el código a su correo electrónico.");
-        }
-
-        function enviarCodigo() {
-            // Redirige a la página "nueva_contraseña.html" en la misma ventana
-            window.location.href = "nueva_contraseña.html";
-        }
-    </script>
+  <script>
+    // Permitir solo números en el campo
+    document.getElementById("codigo").addEventListener("input", function() {
+      this.value = this.value.replace(/[^0-9]/g, "");
+    });
+    
+    // Manejar Enter y validación al presionar el botón
+    function handleKeyPress(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        enviarCodigo();
+      }
+    }
+    
+    function enviarCodigo() {
+      var codigoInput = document.getElementById("codigo");
+      var errorElement = document.getElementById("error-codigo");
+      var codigo = codigoInput.value.trim();
+      
+      // Validar campo vacío
+      if (codigo === "") {
+        errorElement.textContent = "Ingrese el código de 6 dígitos.";
+        return;
+      }
+      
+      // Validar que tenga exactamente 6 dígitos
+      if (codigo.length !== 6) {
+        errorElement.textContent = "El código debe contener 6 dígitos.";
+        return;
+      }
+      
+      errorElement.textContent = "";
+      // Redirigir a la página de nueva contraseña
+      window.location.href = "nueva_contraseña.html";
+    }
+    
+    function reenviarCodigo() {
+      // Aquí puedes añadir la lógica para reenviar el código al correo electrónico
+      alert("Se ha reenviado el código a su correo electrónico.");
+    }
+    
+    // Función para volver a la página de restablecimiento de contraseña
+    function volver() {
+      window.location.href = "restablecer_contraseña.html";
+    }
+  </script>
 </body>
 </html>

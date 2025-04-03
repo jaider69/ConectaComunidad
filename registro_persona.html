@@ -14,58 +14,100 @@
         }
         
         body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #000;
-            color: #fff;
-        }
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
 
-        .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #000;
-            padding: 20px;
-            border-radius: 10px;
-        }
+    .container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: #000;
+      border-radius: 10px;
+      max-width: 1000px;
+      width: 100%;
+    }
 
         .logo-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-right: 50px;
-            text-align: center;
-        }
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
 
         .logo-section img {
             width: 350px;
+            height: auto;
         }
 
         .form-section {
-            background-color: #fff;
-            color: #000;
-            padding: 40px;
-            border-radius: 20px;
-            width: 400px;
-            text-align: center;
-        }
+      background-color: #fff;
+      color: #000;
+      padding: 30px;
+      border-radius: 15px;
+      width: 400px;
+      text-align: center;
+      margin: 20px;
+      position: relative;
+    }
 
         .form-section h2 {
-            font-size: 20px;
+            font-size: 24px;
             margin-bottom: 20px;
         }
-
-        .input-field {
-            width: 95%;
-            padding: 10px;
+        
+        /* Agrupación de inputs y mensajes */
+        .input-group {
             margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 5px;
             border: 1px solid #000;
             border-radius: 20px;
             font-size: 16px;
+            padding-right: 40px; /* espacio para el ícono en contraseña */
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            user-select: none;
+            font-size: 18px;
+        }
+        
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: left;
         }
 
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .checkbox-container input {
+            margin-right: 14px;
+        }
+        
         .submit-button {
             width: 95%;
             padding: 10px;
@@ -83,30 +125,13 @@
         .submit-button:hover {
             background-color: #333;
         }
-
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            font-size: 15px;
-            color: #555;
-        }
-
-        .checkbox-container input {
-            margin-right: 14px;
-        }
-
-        .error-message {
-            color: red;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
+        
         .success-message {
             color: green;
             margin-bottom: 15px;
             font-size: 14px;
         }
-
+        
         .loader {
             border: 3px solid #f3f3f3;
             border-top: 3px solid #000;
@@ -118,8 +143,24 @@
             vertical-align: middle;
             margin-right: 10px;
         }
-
-        @keyframes spin {
+      
+         /* Responsividad para pantallas más pequeñas */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .logo-section, .form-section {
+        margin: 10px;
+      }
+      
+      .form-section {
+        width: 90%;
+      }
+    }
+      
+    @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
@@ -133,24 +174,70 @@
         </div>
 
         <!-- Form Section -->
+        <!-- Se agrega novalidate para desactivar los mensajes nativos -->
         <div class="form-section">
             <h2>Registro Persona</h2>
-            <form id="registro-persona-form">
+            <form id="registro-persona-form" novalidate>
+                <!-- Mensajes generales de error y éxito -->
                 <div id="error-message" class="error-message" style="display: none;"></div>
                 <div id="success-message" class="success-message" style="display: none;"></div>
-                <input type="text" class="input-field" id="nombre" placeholder="Nombre Completo" required>
-                <input type="text" class="input-field" id="identificacion" placeholder="Número de Identificación" required>
-                <input type="text" class="input-field" id="telefono" placeholder="Teléfono de contacto" required>
-                <input type="email" class="input-field" id="email" placeholder="Correo" required>
-                <input type="password" class="input-field" id="password" placeholder="Contraseña" minlength="6" required>
+                
+                <!-- Nombre Completo -->
+                <div class="input-group">
+                    <input type="text" class="input-field" id="nombre" placeholder="Nombre Completo" required>
+                    <div class="error-message" id="error-nombre"></div>
+                </div>
+                
+                <!-- Número de Identificación -->
+                <div class="input-group">
+                    <input type="text" class="input-field" id="identificacion" placeholder="Número de Identificación" required>
+                    <div class="error-message" id="error-identificacion"></div>
+                </div>
+                
+                <!-- Teléfono de contacto -->
+                <div class="input-group">
+                    <input type="text" class="input-field" id="telefono" placeholder="Teléfono de contacto" pattern="[0-9]{7,15}" title="Ingrese solo números (mínimo 7 y máximo 15 dígitos)" required>
+                    <div class="error-message" id="error-telefono"></div>
+                </div>
+                
+                <!-- Correo -->
+                <div class="input-group">
+                    <input type="email" class="input-field" id="email" placeholder="Correo" required>
+                    <div class="error-message" id="error-email"></div>
+                </div>
+                
+                <!-- Contraseña -->
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <input type="password" class="input-field" id="password" placeholder="Contraseña" minlength="6" required>
+                        <span class="toggle-password" id="toggle-password" onclick="togglePassword('password', 'toggle-password')">👁️‍🗨️</span>
+                    </div>
+                    <div class="error-message" id="error-password"></div>
+                </div>
+                
+                <!-- Confirmar Contraseña -->
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <input type="password" class="input-field" id="confirm-password" placeholder="Confirmar Contraseña" required>
+                        <span class="toggle-password" id="toggle-confirm" onclick="togglePassword('confirm-password', 'toggle-confirm')">👁️‍🗨️</span>
+                    </div>
+                    <div class="error-message" id="error-confirm-password"></div>
+                </div>
+
+                 <!-- Términos y Condiciones -->
+                 <div class="checkbox-container">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">Aceptar los términos, condiciones y políticas de ConectaComunidad y política de privacidad</label>
+                  </div>
+                  <div class="error-message" id="error-terms"></div>
+                
+                <!-- Botón de envío -->
                 <button type="submit" class="submit-button">
-                    <span id="button-text">Aceptar y Continuar</span>
+                    <span id="button-text">Registrarse</span>
                     <span id="button-loader" class="loader" style="display: none;"></span>
                 </button>
-                <div class="checkbox-container">
-                    <input type="checkbox" id="terms" required>
-                    <label for="terms">Aceptar los términos, condiciones y políticas de ConectaComunidad y política de privacidad</label>
-                </div>
+                
+               
             </form>
         </div>
     </div>
@@ -158,30 +245,115 @@
     <!-- Scripts al final del body para mejor rendimiento -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Configuración garantizada para evitar errores de inicialización
+        // Función para alternar visibilidad de contraseña y cambiar el ícono
+        function togglePassword(fieldId, toggleId) {
+            var field = document.getElementById(fieldId);
+            var toggleIcon = document.getElementById(toggleId);
+            if (field.type === "password") {
+                field.type = "text";
+                toggleIcon.textContent = "👁";
+            } else {
+                field.type = "password";
+                toggleIcon.textContent = "👁️‍🗨️";
+            }
+        }
+        
+        // Función de validación para cada campo (mostrando mensaje personalizado en rojo)
+        function validateField(input) {
+            if (input.type === 'checkbox') return true;
+            var errorElement = document.getElementById("error-" + input.id);
+            if (!errorElement) return true;
+            
+            // Si el campo está vacío, mostrar mensaje personalizado
+            if (input.required && input.value.trim() === "") {
+                errorElement.textContent = "Este campo es obligatorio.";
+                return false;
+            }
+            
+            // Si no cumple con la validación (pattern, minLength, etc.)
+            if (!input.checkValidity()) {
+                if (input.type === "email") {
+                    errorElement.textContent = "El formato del correo es incorrecto. Por favor, utilice un formato válido (ej. usuario@dominio.com).";
+                } else {
+                    errorElement.textContent = input.title || "Campo inválido.";
+                }
+                return false;
+            }
+            
+            errorElement.textContent = "";
+            return true;
+        }
+        
+        // Validación en tiempo real en cada campo (evento onblur)
+        document.querySelectorAll('.input-field').forEach(function(input) {
+            input.addEventListener('blur', function() {
+                validateField(input);
+            });
+        });
+        
         document.addEventListener('DOMContentLoaded', function() {
-            // 1. Inicialización de Supabase
             const supabaseUrl = 'https://ywfxblbdenirocfwexpz.supabase.co';
             const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3ZnhibGJkZW5pcm9jZndleHB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMzNjA0MTMsImV4cCI6MjA1ODkzNjQxM30.Vtd1VLKoOS7l_cIdtm7Rdhg-to7gA4jzZjk-TZNdaIA';
             const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-            // 2. Configuración del formulario
             const form = document.getElementById('registro-persona-form');
             const errorMessage = document.getElementById('error-message');
             const successMessage = document.getElementById('success-message');
             const buttonText = document.getElementById('button-text');
             const buttonLoader = document.getElementById('button-loader');
-
+            
+            // Navegación con Enter: mover el foco entre inputs (excluyendo checkboxes)
+            const nonCheckboxInputs = Array.from(document.querySelectorAll('input')).filter(input => input.type !== 'checkbox');
+            nonCheckboxInputs.forEach(function(input, index, inputs) {
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        if (index < inputs.length - 1) {
+                            inputs[index + 1].focus();
+                        } else {
+                            // Si es el último campo, se envía el formulario
+                            form.dispatchEvent(new Event('submit'));
+                        }
+                    }
+                });
+            });
+            
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
-
+                
+                // Limpiar mensajes generales
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+                
+                // Validar campos individuales
+                var formValid = true;
+                const inputs = document.querySelectorAll('.input-field');
+                inputs.forEach(function(input) {
+                    if (!validateField(input)) {
+                        formValid = false;
+                    }
+                });
+                
+                // Validar confirmación de contraseña
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                if (password !== confirmPassword) {
+                    document.getElementById('error-confirm-password').textContent = "Las contraseñas no coinciden.";
+                    formValid = false;
+                }
+                
+                 // Validar checkbox de términos
+      if (!document.getElementById('terms').checked) {
+        document.getElementById('error-terms').textContent = "Debe aceptar los términos y condiciones.";
+        formValid = false;
+      }
+                
+                if (!formValid) return; // Detener envío si hay errores
+                
                 // Estado de carga
                 buttonText.textContent = 'Registrando';
                 buttonLoader.style.display = 'inline-block';
-                errorMessage.style.display = 'none';
-                successMessage.style.display = 'none';
                 form.querySelector('button[type="submit"]').disabled = true;
-
+                
                 try {
                     // Obtener valores del formulario
                     const userData = {
@@ -191,54 +363,49 @@
                         dni: document.getElementById('identificacion').value,
                         telefono: document.getElementById('telefono').value
                     };
-
+                    
                     // 1. Registrar usuario en Auth
                     const { data: authData, error: authError } = await supabase.auth.signUp({
                         email: userData.email,
                         password: userData.password
                     });
-
+                    
                     if (authError) throw authError;
-
-                    // 2. Insertar en tabla 'persona' - ESTRUCTURA EXACTA DE TU TABLA
+                    
+                    // 2. Insertar en tabla 'persona'
                     const { data, error } = await supabase
                         .from('persona')
                         .insert([{
-                            auth_id: authData.user.id,  // PRIMARY KEY que referencia auth.users
-                            nombre: userData.nombre,    // TEXT NOT NULL
-                            dni: userData.dni,          // TEXT NOT NULL
-                            telefono: userData.telefono,// TEXT NOT NULL
-                            correo_electr: userData.email // TEXT NOT NULL
-                            // created_at se auto-genera (TIMESTAMPTZ DEFAULT now())
+                            auth_id: authData.user.id,
+                            nombre: userData.nombre,
+                            dni: userData.dni,
+                            telefono: userData.telefono,
+                            correo_electr: userData.email
                         }])
                         .select();
-
+                    
                     if (error) throw error;
-
-                    // Éxito - muestra mensaje y redirige
+                    
+                    // Éxito - mostrar mensaje y redirigir
                     successMessage.textContent = '¡Registro exitoso! Revisa tu correo para confirmar.';
                     successMessage.style.display = 'block';
                     
                     setTimeout(() => {
                         window.location.href = 'iniciar_secion.html';
                     }, 3000);
-
                 } catch (error) {
                     console.error('Error:', error);
-                    
-                    // Mensajes de error específicos
                     let errorMsg = 'Error al registrar. Por favor intenta nuevamente.';
                     if (error.message.includes('User already registered')) {
                         errorMsg = 'Este correo ya está registrado';
                     } else if (error.message.includes('violates row-level security')) {
                         errorMsg = 'Error de permisos. Contacta al administrador.';
                     }
-                    
                     errorMessage.textContent = errorMsg;
                     errorMessage.style.display = 'block';
                     
                     // Restaurar botón
-                    buttonText.textContent = 'Aceptar y Continuar';
+                    buttonText.textContent = 'Registrarse';
                     buttonLoader.style.display = 'none';
                     form.querySelector('button[type="submit"]').disabled = false;
                 }

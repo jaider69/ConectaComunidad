@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Proyecto - Conecta Comunidad</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+        h2 {
+            color: #A95BF5;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #A95BF5;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #8e4bcc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Agregar Nuevo Proyecto</h2>
+        <form id="project-form">
+            <label for="nombre">Nombre del Proyecto:</label>
+            <input type="text" id="nombre" required>
+
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" rows="4" required></textarea>
+
+            <label for="categoria">Categoría:</label>
+            <select id="categoria">
+                <option value="Salud">Salud</option>
+                <option value="Medio Ambiente">Medio Ambiente</option>
+                <option value="Educación">Educación</option>
+            </select>
+
+            <label for="imagen">Imagen del Proyecto:</label>
+            <input type="file" id="imagen" accept="image/*">
+
+            <button type="submit">Subir Proyecto</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("project-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Obtener los valores del formulario
+            const nombre = document.getElementById("nombre").value;
+            const descripcion = document.getElementById("descripcion").value;
+            const categoria = document.getElementById("categoria").value;
+            const imagenInput = document.getElementById("imagen");
+
+            if (imagenInput.files.length > 0) {
+                const reader = new FileReader();
+                reader.readAsDataURL(imagenInput.files[0]);
+                reader.onload = function() {
+                    const imagen = reader.result;
+
+                    // Obtener proyectos previos de localStorage o crear uno nuevo
+                    let proyectos = JSON.parse(localStorage.getItem("proyectos")) || [];
+
+                    // Agregar nuevo proyecto
+                    proyectos.push({ nombre, descripcion, categoria, imagen });
+
+                    // Guardar en localStorage
+                    localStorage.setItem("proyectos", JSON.stringify(proyectos));
+
+                    // Confirmación y redirección
+                    alert("Proyecto agregado exitosamente!");
+                    window.location.href = "proyectos.html";
+                };
+            } else {
+                alert("Por favor, selecciona una imagen para el proyecto.");
+            }
+        });
+    </script>
+</body>
+</html>

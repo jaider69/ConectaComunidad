@@ -1,164 +1,296 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - ConectaComunidad</title>
-    <style>
-        /* Estilos generales */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-        }
-
-        /* Contenedor principal */
-        .container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 20px;
-        }
-
-        /* Logo */
-        .logo {
-            text-align: center;
-            margin-right: 80px;
-        }
-
-        .logo img {
-            width: 350px;
-        }
-
-        .logo h1 {
-            font-size: 2em;
-            font-weight: bold;
-        }
-
-        /* Formulario de inicio de sesión */
-        .login-form {
-            background-color: #fff;
-            color: #000;
-            padding: 40px;
-            border-radius: 15px;
-            width: 300px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .login-form h2 {
-            font-size: 1.5em;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .login-form input[type="text"],
-        .login-form input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            font-size: 1em;
-        }
-
-        .login-form a {
-            display: block;
-            text-align: right;
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-bottom: 15px;
-            text-decoration: none;
-        }
-
-        .login-form .button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .login-form .button:hover {
-            background-color: #555;
-        }
-
-        .login-form .social-button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            background-color: #fff;
-            color: #333;
-            border: 1px solid #333;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .login-form .social-button:hover {
-            background-color: #f7f7f7;
-        }
-
-        .login-form label {
-            font-size: 0.8em;
-            display: flex;
-            align-items: center;
-            margin-top: 15px;
-            color: #333;
-        }
-
-        .login-form input[type="checkbox"] {
-            margin-right: 5px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iniciar Sesión - ConectaComunidad</title>
+  <style>
+    /* Estilos generales */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000;
+      color: #fff;
+      padding: 20px;
+    }
+    
+    /* Contenedor principal */
+    .container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    /* Sección del logo */
+    .logo {
+      text-align: center;
+      margin-right: 80px;
+    }
+    
+    .logo img {
+      width: 350px;
+      max-width: 100%;
+    }
+    
+    /* Formulario de inicio de sesión */
+    .login-form {
+      background-color: #fff;
+      color: #000;
+      padding: 40px 20px;  /* Ajuste del padding lateral */
+      border-radius: 15px;
+      width: 400px;
+      max-width: 100%;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+    
+    .login-form h2 {
+      font-size: 1.5em;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+      width: 100%;
+    }
+    
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      padding-right: 40px; /* Espacio para el ícono */
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 1em;
+      outline: none;
+    }
+    
+    /* Contenedor para el campo de contraseña y el toggle */
+    .input-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      user-select: none;
+      font-size: 18px;
+    }
+    
+    .error-message {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+      text-align: left;
+    }
+    
+    .login-form a {
+      display: block;
+      text-align: right;
+      color: #7f8c8d;
+      font-size: 0.9em;
+      margin-bottom: 15px;
+      text-decoration: none;
+    }
+    
+    .login-form a:hover {
+      text-decoration: underline;
+    }
+    
+    .terms-group {
+      display: flex;
+      align-items: center;
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #333;
+    }
+    
+    .terms-group input {
+      margin-right: 5px;
+    }
+    
+    .terms-error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+      text-align: left;
+    }
+    
+    .submit-button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    
+    .submit-button:hover {
+      background-color: #555;
+    }
+    
+    /* Responsividad */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .logo {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+      .login-form {
+        width: 90%;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Logo -->
-        <div class="logo">
-            <img src="imagenes/logo.jpeg" alt="Logo">
-        </div>
-
-        <!-- Formulario de inicio de sesión -->
-        <div class="login-form">
-            <h2>INICIAR SESIÓN</h2>
-            <form>
-                <input type="text" placeholder="Usuario" required>
-                <input type="password" placeholder="Contraseña" required>
-                <!-- Enlace a "Recuperar Contraseña" -->
-                <a href="restablecer_contraseña.html">¿Haz olvidado tu contraseña?</a>
-                <button type="button" class="button" onclick="iniciarSesion()">INICIAR SESIÓN</button>
-                <button type="button" class="social-button" onclick="continuarRedesSociales()">CONTINUAR CON REDES SOCIALES</button>
-                <label>
-                    <input type="checkbox" required>
-                    Aceptar los términos, condiciones y políticas de ConectaComunidad y política de privacidad
-                </label>
-            </form>
-        </div>
+  <div class="container">
+    <!-- Logo Section -->
+    <div class="logo">
+      <img src="imagenes/logo.jpeg" alt="ConectaComunidad Logo">
     </div>
-
-    <!-- Scripts -->
-    <script>
-        function iniciarSesion() {
-            // Redirige a la página "bienvenido.html" en la misma pestaña
-            window.location.href = "bienvenido.html";
+    
+    <!-- Formulario de Inicio de Sesión -->
+    <div class="login-form">
+      <h2>INICIAR SESIÓN</h2>
+      <form id="loginForm" action="bienvenido.html" method="post" novalidate>
+        <!-- Campo de Correo -->
+        <div class="input-group">
+          <input type="email" name="correo" class="input-field" placeholder="Correo" required>
+          <div class="error-message" id="error-correo"></div>
+        </div>
+        <!-- Campo de Contraseña con toggle -->
+        <div class="input-group">
+          <div class="input-wrapper">
+            <input type="password" name="contrasena" class="input-field" placeholder="Contraseña" pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres" required>
+            <span class="toggle-password" id="toggle-contrasena" onclick="togglePassword('contrasena', 'toggle-contrasena')">👁️‍🗨️</span>
+          </div>
+          <div class="error-message" id="error-contrasena"></div>
+        </div>
+        <!-- Enlace para recuperar contraseña -->
+        <a href="restablecer_contraseña.html">¿Has olvidado tu contraseña?</a>
+        <!-- Checkbox de términos -->
+        <label class="terms-group">
+          <input type="checkbox" id="terms" required>
+          Aceptar términos, condiciones y políticas
+        </label>
+        <div class="error-message" id="error-terms"></div>
+        <!-- Botón de envío -->
+        <button type="submit" class="submit-button">Iniciar Sesión</button>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    // Función para alternar visibilidad de la contraseña y cambiar el ícono
+    function togglePassword(fieldName, toggleId) {
+      var field = document.querySelector('input[name="' + fieldName + '"]');
+      var toggleIcon = document.getElementById(toggleId);
+      if (field.type === "password") {
+        field.type = "text";
+        toggleIcon.textContent = "👁";
+      } else {
+        field.type = "password";
+        toggleIcon.textContent = "👁️‍🗨️";
+      }
+    }
+    
+    // Función de validación para mostrar mensaje si el campo está vacío o es inválido
+    function validateField(input) {
+      // Evitar validar checkboxes
+      if (input.type === 'checkbox') return;
+      var errorElement = document.getElementById("error-" + input.name);
+      if (!errorElement) return;
+      if (input.required && input.value.trim() === "") {
+        errorElement.textContent = "Este campo es obligatorio.";
+        return;
+      }
+      if (!input.checkValidity()) {
+        // Validación personalizada para el correo
+        if (input.name === "correo") {
+          errorElement.textContent = "El formato del correo es incorrecto. Utilice un formato válido (ej. usuario@dominio.com).";
+        } else {
+          errorElement.textContent = input.title || "Campo inválido.";
         }
-
-        function continuarRedesSociales() {
-            // Redirige a la autenticación con redes sociales
-            alert("Autenticación con redes sociales en desarrollo");
+      } else {
+        errorElement.textContent = "";
+      }
+    }
+    
+    // Validación inmediata en cada campo (evento onblur)
+    document.querySelectorAll('input').forEach(function(input) {
+      input.addEventListener('blur', function() {
+        validateField(input);
+      });
+    });
+    
+    // Navegación con Enter: mueve el foco al siguiente campo en inputs que no sean checkbox
+    const nonCheckboxInputs = Array.from(document.querySelectorAll('input')).filter(input => input.type !== 'checkbox');
+    nonCheckboxInputs.forEach(function(input, index, inputs) {
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          if (index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          } else {
+            // Si es el último campo, se envía el formulario
+            document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+          }
         }
-    </script>
+      });
+    });
+    
+    // Validación en envío del formulario
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Limpiar mensajes previos
+      document.getElementById('error-correo').textContent = "";
+      document.getElementById('error-contrasena').textContent = "";
+      document.getElementById('error-terms').textContent = "";
+      
+      var formValid = true;
+      var inputs = document.querySelectorAll('input');
+      inputs.forEach(function(input) {
+        if (input.type !== "checkbox") {
+          validateField(input);
+          if (!input.checkValidity()) {
+            formValid = false;
+          }
+        }
+      });
+      
+      // Validar checkbox de términos
+      if (!document.getElementById('terms').checked) {
+        document.getElementById('error-terms').textContent = "Debe aceptar los términos.";
+        formValid = false;
+      }
+      
+      if (formValid) {
+        window.location.href = "bienvenido.html";
+      }
+    });
+  </script>
 </body>
 </html>
