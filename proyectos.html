@@ -46,7 +46,7 @@
         }
         .search-bar input {
             padding: 10px;
-            width: 100%;
+            width: 93%;
             border-radius: 5px;
             border: none;
             font-size: 16px;
@@ -62,7 +62,7 @@
             cursor: pointer;
         }
         .search-bar button img {
-            width: 20px;
+            width: 30px;
         }
         .projects-section {
             padding: 20px;
@@ -155,7 +155,7 @@
         <div class="search-bar">
             <input type="text" id="search" placeholder="Buscar proyectos...">
             <button onclick="filtrarProyectos()">
-                <img src="imagenes/lupa.png" alt="Buscar">
+                <img src="imagenes/lupa.jpg" alt="Buscar">
             </button>
         </div>
         
@@ -167,70 +167,64 @@
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        // Configuración de Supabase en un ámbito global
-        window.supabase = supabase.createClient(
-            'https://fbqjjhjstvcbdcpgwems.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZicWpqaGpzdHZjYmRjcGd3ZW1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5MDQ3ODUsImV4cCI6MjA2MDQ4MDc4NX0.F-MsX8_lTk5fmRhts_eqaByRZaSP1IXpV3KxLpaWxj8'
-        );
-    </script>
+<script>
+  // Configuración de Supabase
+  window.supabase = supabase.createClient(
+    'https://fbqjjhjstvcbdcpgwems.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZicWpqaGpzdHZjYmRjcGd3ZW1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5MDQ3ODUsImV4cCI6MjA2MDQ4MDc4NX0.F-MsX8_lTk5fmRhts_eqaByRZaSP1IXpV3KxLpaWxj8'
+  );
 
-    <script>
+  // Función para mostrar proyectos
+  function mostrarProyectos(proyectos) {
+    const proyectosPorCategoria = proyectos.reduce((acc, proyecto) => {
+      if (!acc[proyecto.categoria]) acc[proyecto.categoria] = [];
+      acc[proyecto.categoria].push(proyecto);
+      return acc;
+    }, {});
 
-  // 2. Función para cargar y mostrar proyectos
+    let html = '';
+    for (const [categoria, proyectos] of Object.entries(proyectosPorCategoria)) {
+      html += `
+        <div class="project-category">
+          <h2 class="category-title">${categoria}</h2>
+          <div class="projects-container">
+            ${proyectos.map(proyecto => `
+              <div class="project-card">
+                <img src="${proyecto.imagen_url}" alt="${proyecto.nombre}" class="project-image">
+                <h3>${proyecto.nombre}</h3>
+                <p class="project-description">${proyecto.descripcion.substring(0, 100)}...</p>
+                <a href="detalle_proyecto.html?id=${proyecto.id}" class="view-more-btn">Ver más</a>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+    document.getElementById("project-list").innerHTML = html;
+  }
+
+  // Función para cargar proyectos
   async function cargarProyectos() {
     try {
-      // Mostrar loader
       document.getElementById("project-list").innerHTML = `
         <div class="loading">Cargando proyectos...</div>
       `;
 
-      // Obtener proyectos desde Supabase
       const { data: proyectos, error } = await supabase
         .from('proyectos')
         .select('*')
-        .order('created_at', { ascending: false }); // Ordenar por fecha
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
 
-      // Si no hay proyectos
       if (!proyectos || proyectos.length === 0) {
         document.getElementById("project-list").innerHTML = `
-          <p class="error">No hay proyectos disponibles. ¡Sé el primero en crear uno!</p>
+          <p class="error">No hay proyectos disponibles</p>
         `;
         return;
       }
 
-      // Agrupar por categoría (opcional)
-      const proyectosPorCategoria = proyectos.reduce((acc, proyecto) => {
-        if (!acc[proyecto.categoria]) acc[proyecto.categoria] = [];
-        acc[proyecto.categoria].push(proyecto);
-        return acc;
-      }, {});
-
-      // Generar HTML
-      let html = '';
-      for (const [categoria, proyectos] of Object.entries(proyectosPorCategoria)) {
-        html += `
-          <div class="project-category">
-            <h2 class="category-title">${categoria}</h2>
-            <div class="projects-container">
-              ${proyectos.map(proyecto => `
-                <div class="project-card">
-                  <img src="${proyecto.imagen_url}" alt="${proyecto.nombre}" class="project-image">
-                  <h3>${proyecto.nombre}</h3>
-                  <p class="project-description">${proyecto.descripcion.substring(0, 100)}...</p>
-                  <a href="detalle_proyecto.html?id=${proyecto.id}" class="view-more-btn">Ver más</a>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-      }
-
-      // Mostrar en el DOM
-      document.getElementById("project-list").innerHTML = html;
-
+      mostrarProyectos(proyectos);
     } catch (error) {
       console.error("Error al cargar proyectos:", error);
       document.getElementById("project-list").innerHTML = `
@@ -239,8 +233,50 @@
     }
   }
 
-  // 3. Cargar proyectos al iniciar la página
+  // Función para buscar proyectos
+  async function filtrarProyectos() {
+    const searchTerm = document.getElementById('search').value.toLowerCase().trim();
+    
+    if (!searchTerm) {
+      cargarProyectos();
+      return;
+    }
+
+    try {
+      document.getElementById("project-list").innerHTML = `
+        <div class="loading">Buscando proyectos...</div>
+      `;
+
+      const { data: proyectos, error } = await supabase
+        .from('proyectos')
+        .select('*')
+        .or(`nombre.ilike.%${searchTerm}%,categoria.ilike.%${searchTerm}%`)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      if (!proyectos || proyectos.length === 0) {
+        document.getElementById("project-list").innerHTML = `
+          <p class="error">No se encontraron proyectos para "${searchTerm}"</p>
+        `;
+        return;
+      }
+
+      mostrarProyectos(proyectos);
+    } catch (error) {
+      console.error("Error al buscar proyectos:", error);
+      document.getElementById("project-list").innerHTML = `
+        <p class="error">Error al buscar: ${error.message}</p>
+      `;
+    }
+  }
+
+  // Event listeners
   document.addEventListener('DOMContentLoaded', cargarProyectos);
+  document.querySelector('.search-bar button').addEventListener('click', filtrarProyectos);
+  document.getElementById('search').addEventListener('keyup', function(e) {
+    if (e.key === 'Enter') filtrarProyectos();
+  });
 </script>
 </body>
 </html>
