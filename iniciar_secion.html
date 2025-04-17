@@ -100,6 +100,14 @@
       text-align: left;
     }
     
+    .success-message {
+      color: green;
+      font-size: 0.9em;
+      margin-top: 5px;
+      text-align: center;
+      display: none;
+    }
+    
     .login-form a {
       display: block;
       text-align: right;
@@ -144,10 +152,29 @@
       font-weight: bold;
       text-align: center;
       text-transform: uppercase;
+      position: relative;
     }
     
     .submit-button:hover {
       background-color: #555;
+    }
+    
+    .loader {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #fff;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+      display: none;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
     
     /* Responsividad */
@@ -175,16 +202,20 @@
     <!-- Formulario de Inicio de Sesión -->
     <div class="login-form">
       <h2>INICIAR SESIÓN</h2>
-      <form id="loginForm" action="bienvenido.html" method="post" novalidate>
+      <form id="loginForm" novalidate>
+        <!-- Mensajes generales -->
+        <div id="general-error" class="error-message" style="text-align: center; margin-bottom: 15px;"></div>
+        <div id="success-message" class="success-message"></div>
+        
         <!-- Campo de Correo -->
         <div class="input-group">
-          <input type="email" name="correo" class="input-field" placeholder="Correo" required>
+          <input type="email" name="correo" id="correo" class="input-field" placeholder="Correo" required>
           <div class="error-message" id="error-correo"></div>
         </div>
         <!-- Campo de Contraseña con toggle -->
         <div class="input-group">
           <div class="input-wrapper">
-            <input type="password" name="contrasena" class="input-field" placeholder="Contraseña" pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres" required>
+            <input type="password" name="contrasena" id="contrasena" class="input-field" placeholder="Contraseña" required>
             <span class="toggle-password" id="toggle-contrasena" onclick="togglePassword('contrasena', 'toggle-contrasena')">👁️‍🗨️</span>
           </div>
           <div class="error-message" id="error-contrasena"></div>
@@ -198,15 +229,19 @@
         </label>
         <div class="error-message" id="error-terms"></div>
         <!-- Botón de envío -->
-        <button type="submit" class="submit-button">Iniciar Sesión</button>
+        <button type="submit" class="submit-button">
+          <span id="button-text">Iniciar Sesión</span>
+          <span id="button-loader" class="loader"></span>
+        </button>
       </form>
     </div>
   </div>
   
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // Función para alternar visibilidad de la contraseña y cambiar el ícono
-    function togglePassword(fieldName, toggleId) {
-      var field = document.querySelector('input[name="' + fieldName + '"]');
+    function togglePassword(fieldId, toggleId) {
+      var field = document.getElementById(fieldId);
       var toggleIcon = document.getElementById(toggleId);
       if (field.type === "password") {
         field.type = "text";
@@ -220,23 +255,28 @@
     // Función de validación para mostrar mensaje si el campo está vacío o es inválido
     function validateField(input) {
       // Evitar validar checkboxes
-      if (input.type === 'checkbox') return;
-      var errorElement = document.getElementById("error-" + input.name);
-      if (!errorElement) return;
+      if (input.type === 'checkbox') return true;
+      
+      var errorElement = document.getElementById("error-" + input.id);
+      if (!errorElement) return true;
+      
       if (input.required && input.value.trim() === "") {
         errorElement.textContent = "Este campo es obligatorio.";
-        return;
+        return false;
       }
+      
       if (!input.checkValidity()) {
         // Validación personalizada para el correo
-        if (input.name === "correo") {
+        if (input.id === "correo") {
           errorElement.textContent = "El formato del correo es incorrecto. Utilice un formato válido (ej. usuario@dominio.com).";
         } else {
           errorElement.textContent = input.title || "Campo inválido.";
         }
-      } else {
-        errorElement.textContent = "";
-      }
+        return false;
+      } 
+      
+      errorElement.textContent = "";
+      return true;
     }
     
     // Validación inmediata en cada campo (evento onblur)
@@ -262,34 +302,129 @@
       });
     });
     
-    // Validación en envío del formulario
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Limpiar mensajes previos
-      document.getElementById('error-correo').textContent = "";
-      document.getElementById('error-contrasena').textContent = "";
-      document.getElementById('error-terms').textContent = "";
+    // Configuración de Supabase
+    document.addEventListener('DOMContentLoaded', function() {
+      const supabaseUrl = 'https://fbqjjhjstvcbdcpgwems.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZicWpqaGpzdHZjYmRjcGd3ZW1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5MDQ3ODUsImV4cCI6MjA2MDQ4MDc4NX0.F-MsX8_lTk5fmRhts_eqaByRZaSP1IXpV3KxLpaWxj8';
+      const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+      const form = document.getElementById('loginForm');
+      const generalError = document.getElementById('general-error');
+      const successMessage = document.getElementById('success-message');
+      const buttonText = document.getElementById('button-text');
+      const buttonLoader = document.getElementById('button-loader');
       
-      var formValid = true;
-      var inputs = document.querySelectorAll('input');
-      inputs.forEach(function(input) {
-        if (input.type !== "checkbox") {
-          validateField(input);
-          if (!input.checkValidity()) {
-            formValid = false;
+      // Validación en envío del formulario con autenticación de Supabase
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Limpiar mensajes previos
+        generalError.textContent = "";
+        successMessage.textContent = "";
+        document.querySelectorAll('.error-message').forEach(el => {
+          if (el.id !== 'general-error') el.textContent = "";
+        });
+        
+        // Validar los campos del formulario
+        const correoInput = document.getElementById('correo');
+        const contrasenaInput = document.getElementById('contrasena');
+        const termsCheckbox = document.getElementById('terms');
+        
+        let formValid = true;
+        
+        // Validar correo y contraseña
+        if (!validateField(correoInput)) formValid = false;
+        if (!validateField(contrasenaInput)) formValid = false;
+        
+        // Validar términos y condiciones
+        if (!termsCheckbox.checked) {
+          document.getElementById('error-terms').textContent = "Debe aceptar los términos y condiciones.";
+          formValid = false;
+        } else {
+          document.getElementById('error-terms').textContent = "";
+        }
+        
+        if (!formValid) return;
+        
+        // Mostrar estado de carga
+        buttonText.textContent = 'Iniciando sesión...';
+        buttonLoader.style.display = 'inline-block';
+        form.querySelector('button[type="submit"]').disabled = true;
+        
+        try {
+          // Intentar iniciar sesión con Supabase
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email: correoInput.value,
+            password: contrasenaInput.value,
+          });
+          
+          if (error) throw error;
+          
+          // Verificar si el usuario existe en la tabla 'persona' o 'empresa'
+          let userType = null;
+          
+          // Primero buscar en tabla de persona
+          const { data: personaData, error: personaError } = await supabase
+            .from('persona')
+            .select('*')
+            .eq('auth_id', data.user.id)
+            .single();
+          
+          if (!personaError && personaData) {
+            userType = 'persona';
+          } else {
+            // Si no está en persona, buscar en empresa
+            const { data: empresaData, error: empresaError } = await supabase
+              .from('empresa')
+              .select('*')
+              .eq('auth_id', data.user.id)
+              .single();
+              
+            if (!empresaError && empresaData) {
+              userType = 'empresa';
+            }
           }
+          
+          if (!userType) {
+            throw new Error('Usuario no encontrado en el sistema.');
+          }
+          
+          // Almacenar información de sesión
+          localStorage.setItem('user', JSON.stringify({
+            id: data.user.id,
+            email: data.user.email,
+            userType: userType,
+            accessToken: data.session.access_token
+          }));
+          
+          // Mensaje de éxito
+          successMessage.textContent = 'Inicio de sesión exitoso. Redirigiendo...';
+          successMessage.style.display = 'block';
+          
+          // Redireccionar según el tipo de usuario
+          setTimeout(() => {
+            window.location.href = "bienvenido.html";
+          }, 1500);
+          
+        } catch (error) {
+          console.error('Error de inicio de sesión:', error);
+          
+          // Mostrar mensaje de error apropiado
+          let errorMsg = 'No se pudo iniciar sesión. Verifica tus credenciales e intenta nuevamente.';
+          
+          if (error.message.includes('Invalid login credentials')) {
+            errorMsg = 'Correo o contraseña incorrectos. Por favor, verifica tus datos.';
+          } else if (error.message.includes('Email not confirmed')) {
+            errorMsg = 'Por favor, confirma tu correo electrónico antes de iniciar sesión.';
+          }
+          
+          generalError.textContent = errorMsg;
+          
+          // Restaurar botón
+          buttonText.textContent = 'Iniciar Sesión';
+          buttonLoader.style.display = 'none';
+          form.querySelector('button[type="submit"]').disabled = false;
         }
       });
-      
-      // Validar checkbox de términos
-      if (!document.getElementById('terms').checked) {
-        document.getElementById('error-terms').textContent = "Debe aceptar los términos.";
-        formValid = false;
-      }
-      
-      if (formValid) {
-        window.location.href = "bienvenido.html";
-      }
     });
   </script>
 </body>

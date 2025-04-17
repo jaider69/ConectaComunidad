@@ -50,6 +50,20 @@
         button:hover {
             background-color: #8e4bcc;
         }
+        #loading {
+            display: none;
+            margin-top: 20px;
+        }
+        .error {
+            color: #ff6b6b;
+            margin-top: 10px;
+        }
+        #preview-image {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 10px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -63,51 +77,126 @@
             <textarea id="descripcion" rows="4" required></textarea>
 
             <label for="categoria">Categoría:</label>
-            <select id="categoria">
+            <select id="categoria" required>
+                <option value="">Selecciona una categoría</option>
                 <option value="Salud">Salud</option>
                 <option value="Medio Ambiente">Medio Ambiente</option>
                 <option value="Educación">Educación</option>
             </select>
 
             <label for="imagen">Imagen del Proyecto:</label>
-            <input type="file" id="imagen" accept="image/*">
-
+            <input type="file" id="imagen" accept="image/*" required>
+            <img id="preview-image" src="#" alt="Vista previa de la imagen">
+            
+            <div id="error-message" class="error"></div>
+            <div id="loading">Subiendo proyecto...</div>
             <button type="submit">Subir Proyecto</button>
         </form>
     </div>
 
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- ... (mantén tu head existente) ... -->
+</head>
+<body>
+    <!-- ... (mantén tu HTML existente) ... -->
+
+    <!-- Cambia el orden de los scripts -->
+    <!-- Primero carga Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        document.getElementById("project-form").addEventListener("submit", function(event) {
-            event.preventDefault();
+        // Configuración de Supabase en un ámbito global
+        window.supabase = supabase.createClient(
+            'https://fbqjjhjstvcbdcpgwems.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZicWpqaGpzdHZjYmRjcGd3ZW1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5MDQ3ODUsImV4cCI6MjA2MDQ4MDc4NX0.F-MsX8_lTk5fmRhts_eqaByRZaSP1IXpV3KxLpaWxj8'
+        );
+    </script>
 
-            // Obtener los valores del formulario
-            const nombre = document.getElementById("nombre").value;
-            const descripcion = document.getElementById("descripcion").value;
-            const categoria = document.getElementById("categoria").value;
-            const imagenInput = document.getElementById("imagen");
-
-            if (imagenInput.files.length > 0) {
-                const reader = new FileReader();
-                reader.readAsDataURL(imagenInput.files[0]);
-                reader.onload = function() {
-                    const imagen = reader.result;
-
-                    // Obtener proyectos previos de localStorage o crear uno nuevo
-                    let proyectos = JSON.parse(localStorage.getItem("proyectos")) || [];
-
-                    // Agregar nuevo proyecto
-                    proyectos.push({ nombre, descripcion, categoria, imagen });
-
-                    // Guardar en localStorage
-                    localStorage.setItem("proyectos", JSON.stringify(proyectos));
-
-                    // Confirmación y redirección
-                    alert("Proyecto agregado exitosamente!");
-                    window.location.href = "proyectos.html";
-                };
-            } else {
-                alert("Por favor, selecciona una imagen para el proyecto.");
-            }
+    <!-- Luego tu código de aplicación -->
+    <script>
+        // Espera a que todo el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vista previa de la imagen
+            document.getElementById('imagen').addEventListener('change', function(e) {
+                const preview = document.getElementById('preview-image');
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+            
+            // Envío del formulario
+            document.getElementById('project-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                try {
+                    // Obtener usuario actual
+                    const { data: { user }, error: userError } = await window.supabase.auth.getUser();
+                    if (userError || !user) {
+                        alert('Debes iniciar sesión para agregar un proyecto');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    
+                    // Mostrar carga y ocultar errores
+                    document.getElementById('loading').style.display = 'block';
+                    document.getElementById('error-message').textContent = '';
+                    
+                    // Obtener valores del formulario
+                    const nombre = document.getElementById('nombre').value;
+                    const descripcion = document.getElementById('descripcion').value;
+                    const categoria = document.getElementById('categoria').value;
+                    const imagenFile = document.getElementById('imagen').files[0];
+                    
+                    // Validaciones
+                    if (!nombre || !descripcion || !categoria || !imagenFile) {
+                        throw new Error('Todos los campos son obligatorios');
+                    }
+                    
+                    // Subir imagen
+                    const fileExt = imagenFile.name.split('.').pop();
+                    const fileName = `${user.id}-${Date.now()}.${fileExt}`;
+                    const filePath = `proyectos/${fileName}`;
+                    
+                    const { error: uploadError } = await window.supabase.storage
+                        .from('proyectos')
+                        .upload(filePath, imagenFile);
+                    
+                    if (uploadError) throw uploadError;
+                    
+                    // Obtener URL pública
+                    const { data: { publicUrl } } = window.supabase.storage
+                        .from('proyectos')
+                        .getPublicUrl(filePath);
+                    
+                    // Guardar proyecto
+                    const { error } = await window.supabase
+                        .from('proyectos')
+                        .insert([{
+                            nombre,
+                            descripcion,
+                            categoria,
+                            imagen_url: publicUrl,
+                            user_id: user.id
+                        }]);
+                    
+                    if (error) throw error;
+                    
+                    alert('Proyecto agregado exitosamente!');
+                    window.location.href = 'proyectos.html';
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('error-message').textContent = error.message || 'Error al guardar el proyecto';
+                } finally {
+                    document.getElementById('loading').style.display = 'none';
+                }
+            });
         });
     </script>
 </body>

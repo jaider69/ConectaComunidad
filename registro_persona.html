@@ -14,53 +14,55 @@
         }
         
         body {
-      background-color: #000;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-    }
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
 
-    .container {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      background-color: #000;
-      border-radius: 10px;
-      max-width: 1000px;
-      width: 100%;
-    }
+        .container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: #000;
+            border-radius: 10px;
+            max-width: 1000px;
+            width: 100%;
+        }
 
         .logo-section {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
         .logo-section img {
-            width: 350px;
+            width: 100%;
+            max-width: 350px;
             height: auto;
         }
 
         .form-section {
-      background-color: #fff;
-      color: #000;
-      padding: 30px;
-      border-radius: 15px;
-      width: 400px;
-      text-align: center;
-      margin: 20px;
-      position: relative;
-    }
+            background-color: #fff;
+            color: #000;
+            padding: 30px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin: 20px;
+            position: relative;
+        }
 
         .form-section h2 {
             font-size: 24px;
             margin-bottom: 20px;
         }
         
-        /* Agrupación de inputs y mensajes */
         .input-group {
             margin-bottom: 20px;
             text-align: left;
@@ -73,7 +75,7 @@
             border: 1px solid #000;
             border-radius: 20px;
             font-size: 16px;
-            padding-right: 40px; /* espacio para el ícono en contraseña */
+            padding-right: 40px;
         }
         
         .input-wrapper {
@@ -95,6 +97,7 @@
             font-size: 14px;
             margin-top: 5px;
             text-align: left;
+            min-height: 18px;
         }
 
         .checkbox-container {
@@ -102,15 +105,17 @@
             align-items: center;
             font-size: 15px;
             color: #555;
+            margin-bottom: 20px;
         }
 
         .checkbox-container input {
-            margin-right: 14px;
+            margin-right: 10px;
+            min-width: 16px;
         }
         
         .submit-button {
-            width: 95%;
-            padding: 10px;
+            width: 100%;
+            padding: 12px;
             border: none;
             border-radius: 20px;
             background-color: #000;
@@ -119,7 +124,8 @@
             cursor: pointer;
             text-transform: uppercase;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
         }
 
         .submit-button:hover {
@@ -144,23 +150,46 @@
             margin-right: 10px;
         }
       
-         /* Responsividad para pantallas más pequeñas */
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        align-items: center;
-      }
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .logo-section {
+                padding: 10px 0;
+            }
+            
+            .logo-section img {
+                max-width: 250px;
+            }
+            
+            .form-section {
+                margin: 10px 0;
+                padding: 20px;
+            }
+            
+            .checkbox-container {
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .form-section {
+                padding: 15px;
+            }
+            
+            .input-field {
+                font-size: 15px;
+            }
+        }
       
-      .logo-section, .form-section {
-        margin: 10px;
-      }
-      
-      .form-section {
-        width: 90%;
-      }
-    }
-      
-    @keyframes spin {
+        @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
@@ -174,11 +203,10 @@
         </div>
 
         <!-- Form Section -->
-        <!-- Se agrega novalidate para desactivar los mensajes nativos -->
         <div class="form-section">
             <h2>Registro Persona</h2>
             <form id="registro-persona-form" novalidate>
-                <!-- Mensajes generales de error y éxito -->
+                <!-- Mensajes generales -->
                 <div id="error-message" class="error-message" style="display: none;"></div>
                 <div id="success-message" class="success-message" style="display: none;"></div>
                 
@@ -190,13 +218,19 @@
                 
                 <!-- Número de Identificación -->
                 <div class="input-group">
-                    <input type="text" class="input-field" id="identificacion" placeholder="Número de Identificación" required>
+                    <input type="text" class="input-field" id="identificacion" 
+                           placeholder="Número de Identificación" 
+                           pattern="[0-9]{7,11}" 
+                           title="Debe contener entre 7 y 11 dígitos" required>
                     <div class="error-message" id="error-identificacion"></div>
                 </div>
                 
-                <!-- Teléfono de contacto -->
+                <!-- Teléfono -->
                 <div class="input-group">
-                    <input type="text" class="input-field" id="telefono" placeholder="Teléfono de contacto" pattern="[0-9]{7,15}" title="Ingrese solo números (mínimo 7 y máximo 15 dígitos)" required>
+                    <input type="text" class="input-field" id="telefono" 
+                           placeholder="Teléfono de contacto" 
+                           pattern="[0-9]{7,15}" 
+                           title="Ingrese solo números (entre 7 y 15 dígitos)" required>
                     <div class="error-message" id="error-telefono"></div>
                 </div>
                 
@@ -209,7 +243,10 @@
                 <!-- Contraseña -->
                 <div class="input-group">
                     <div class="input-wrapper">
-                        <input type="password" class="input-field" id="password" placeholder="Contraseña" minlength="6" required>
+                        <input type="password" class="input-field" id="password" 
+                               placeholder="Contraseña" 
+                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                               title="Debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula y un número" required>
                         <span class="toggle-password" id="toggle-password" onclick="togglePassword('password', 'toggle-password')">👁️‍🗨️</span>
                     </div>
                     <div class="error-message" id="error-password"></div>
@@ -224,31 +261,28 @@
                     <div class="error-message" id="error-confirm-password"></div>
                 </div>
 
-                 <!-- Términos y Condiciones -->
-                 <div class="checkbox-container">
+                <!-- Términos y Condiciones -->
+                <div class="checkbox-container">
                     <input type="checkbox" id="terms" name="terms" required>
                     <label for="terms">Aceptar los términos, condiciones y políticas de ConectaComunidad y política de privacidad</label>
-                  </div>
-                  <div class="error-message" id="error-terms"></div>
+                </div>
+                <div class="error-message" id="error-terms"></div>
                 
                 <!-- Botón de envío -->
                 <button type="submit" class="submit-button">
                     <span id="button-text">Registrarse</span>
                     <span id="button-loader" class="loader" style="display: none;"></span>
                 </button>
-                
-               
             </form>
         </div>
     </div>
 
-    <!-- Scripts al final del body para mejor rendimiento -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Función para alternar visibilidad de contraseña y cambiar el ícono
+        // Función para alternar visibilidad de contraseña
         function togglePassword(fieldId, toggleId) {
-            var field = document.getElementById(fieldId);
-            var toggleIcon = document.getElementById(toggleId);
+            const field = document.getElementById(fieldId);
+            const toggleIcon = document.getElementById(toggleId);
             if (field.type === "password") {
                 field.type = "text";
                 toggleIcon.textContent = "👁";
@@ -258,59 +292,65 @@
             }
         }
         
-        // Función de validación para cada campo (mostrando mensaje personalizado en rojo)
+        // Función de validación de campos
         function validateField(input) {
-            if (input.type === 'checkbox') return true;
-            var errorElement = document.getElementById("error-" + input.id);
+            if (input.type === 'checkbox') return input.checked;
+            
+            const errorElement = document.getElementById(`error-${input.id}`);
             if (!errorElement) return true;
             
-            // Si el campo está vacío, mostrar mensaje personalizado
+            errorElement.textContent = "";
+            
+            // Validar campo vacío
             if (input.required && input.value.trim() === "") {
                 errorElement.textContent = "Este campo es obligatorio.";
                 return false;
             }
             
-            // Si no cumple con la validación (pattern, minLength, etc.)
+            // Validar según el tipo de campo
             if (!input.checkValidity()) {
-                if (input.type === "email") {
-                    errorElement.textContent = "El formato del correo es incorrecto. Por favor, utilice un formato válido (ej. usuario@dominio.com).";
-                } else {
-                    errorElement.textContent = input.title || "Campo inválido.";
+                switch(input.id) {
+                    case "email":
+                        errorElement.textContent = "Formato de correo inválido (ejemplo: usuario@dominio.com).";
+                        break;
+                    case "identificacion":
+                        errorElement.textContent = "Debe contener entre 7 y 11 dígitos.";
+                        break;
+                    case "telefono":
+                        errorElement.textContent = "Debe contener entre 7 y 15 dígitos.";
+                        break;
+                    case "password":
+                        errorElement.textContent = "Debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula y un número.";
+                        break;
+                    default:
+                        errorElement.textContent = input.title || "Valor inválido.";
                 }
                 return false;
             }
             
-            errorElement.textContent = "";
             return true;
         }
         
-        // Validación en tiempo real en cada campo (evento onblur)
-        document.querySelectorAll('.input-field').forEach(function(input) {
-            input.addEventListener('blur', function() {
-                validateField(input);
-            });
-        });
-        
         document.addEventListener('DOMContentLoaded', function() {
-            const supabaseUrl = 'https://ywfxblbdenirocfwexpz.supabase.co';
-            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3ZnhibGJkZW5pcm9jZndleHB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMzNjA0MTMsImV4cCI6MjA1ODkzNjQxM30.Vtd1VLKoOS7l_cIdtm7Rdhg-to7gA4jzZjk-TZNdaIA';
+            const supabaseUrl = 'https://fbqjjhjstvcbdcpgwems.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZicWpqaGpzdHZjYmRjcGd3ZW1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5MDQ3ODUsImV4cCI6MjA2MDQ4MDc4NX0.F-MsX8_lTk5fmRhts_eqaByRZaSP1IXpV3KxLpaWxj8';
             const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
             const form = document.getElementById('registro-persona-form');
-            const errorMessage = document.getElementById('error-message');
-            const successMessage = document.getElementById('success-message');
-            const buttonText = document.getElementById('button-text');
-            const buttonLoader = document.getElementById('button-loader');
             
-            // Navegación con Enter: mover el foco entre inputs (excluyendo checkboxes)
-            const nonCheckboxInputs = Array.from(document.querySelectorAll('input')).filter(input => input.type !== 'checkbox');
-            nonCheckboxInputs.forEach(function(input, index, inputs) {
-                input.addEventListener('keydown', function(e) {
+            // Validación en tiempo real
+            document.querySelectorAll('.input-field, #terms').forEach(input => {
+                input.addEventListener('blur', () => validateField(input));
+            });
+            
+            // Navegación con Enter
+            const inputs = Array.from(document.querySelectorAll('input:not([type="checkbox"])'));
+            inputs.forEach((input, index) => {
+                input.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter') {
                         e.preventDefault();
                         if (index < inputs.length - 1) {
                             inputs[index + 1].focus();
                         } else {
-                            // Si es el último campo, se envía el formulario
                             form.dispatchEvent(new Event('submit'));
                         }
                     }
@@ -320,20 +360,18 @@
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
-                // Limpiar mensajes generales
-                errorMessage.style.display = 'none';
-                successMessage.style.display = 'none';
+                // Limpiar mensajes previos
+                document.querySelectorAll('.error-message').forEach(el => el.textContent = "");
+                document.getElementById('error-message').style.display = 'none';
+                document.getElementById('success-message').style.display = 'none';
                 
-                // Validar campos individuales
-                var formValid = true;
-                const inputs = document.querySelectorAll('.input-field');
-                inputs.forEach(function(input) {
-                    if (!validateField(input)) {
-                        formValid = false;
-                    }
+                // Validar todos los campos
+                let formValid = true;
+                document.querySelectorAll('.input-field, #terms').forEach(input => {
+                    if (!validateField(input)) formValid = false;
                 });
                 
-                // Validar confirmación de contraseña
+                // Validar coincidencia de contraseñas
                 const password = document.getElementById('password').value;
                 const confirmPassword = document.getElementById('confirm-password').value;
                 if (password !== confirmPassword) {
@@ -341,30 +379,26 @@
                     formValid = false;
                 }
                 
-                 // Validar checkbox de términos
-      if (!document.getElementById('terms').checked) {
-        document.getElementById('error-terms').textContent = "Debe aceptar los términos y condiciones.";
-        formValid = false;
-      }
+                if (!formValid) return;
                 
-                if (!formValid) return; // Detener envío si hay errores
-                
-                // Estado de carga
-                buttonText.textContent = 'Registrando';
+                // Mostrar estado de carga
+                const buttonText = document.getElementById('button-text');
+                const buttonLoader = document.getElementById('button-loader');
+                buttonText.textContent = 'Registrando...';
                 buttonLoader.style.display = 'inline-block';
                 form.querySelector('button[type="submit"]').disabled = true;
                 
                 try {
-                    // Obtener valores del formulario
+                    // Obtener datos del formulario
                     const userData = {
                         email: document.getElementById('email').value,
-                        password: document.getElementById('password').value,
+                        password: password,
                         nombre: document.getElementById('nombre').value,
                         dni: document.getElementById('identificacion').value,
                         telefono: document.getElementById('telefono').value
                     };
                     
-                    // 1. Registrar usuario en Auth
+                    // Registrar en Supabase Auth
                     const { data: authData, error: authError } = await supabase.auth.signUp({
                         email: userData.email,
                         password: userData.password
@@ -372,7 +406,7 @@
                     
                     if (authError) throw authError;
                     
-                    // 2. Insertar en tabla 'persona'
+                    // Insertar en tabla 'persona'
                     const { data, error } = await supabase
                         .from('persona')
                         .insert([{
@@ -386,22 +420,28 @@
                     
                     if (error) throw error;
                     
-                    // Éxito - mostrar mensaje y redirigir
-                    successMessage.textContent = '¡Registro exitoso! Revisa tu correo para confirmar.';
-                    successMessage.style.display = 'block';
+                    // Mostrar mensaje de éxito
+                    document.getElementById('success-message').textContent = '¡Registro exitoso! Revisa tu correo para confirmar.';
+                    document.getElementById('success-message').style.display = 'block';
                     
+                    // Redirigir después de 3 segundos
                     setTimeout(() => {
                         window.location.href = 'iniciar_secion.html';
                     }, 3000);
+                    
                 } catch (error) {
                     console.error('Error:', error);
-                    let errorMsg = 'Error al registrar. Por favor intenta nuevamente.';
+                    const errorMessage = document.getElementById('error-message');
+                    
+                    // Manejar errores específicos
                     if (error.message.includes('User already registered')) {
-                        errorMsg = 'Este correo ya está registrado';
-                    } else if (error.message.includes('violates row-level security')) {
-                        errorMsg = 'Error de permisos. Contacta al administrador.';
+                        errorMessage.textContent = 'Este correo ya está registrado.';
+                    } else if (error.message.includes('email rate limit exceeded')) {
+                        errorMessage.textContent = 'Demasiados intentos. Por favor espera unos minutos.';
+                    } else {
+                        errorMessage.textContent = 'Error al registrar. Por favor intenta nuevamente.';
                     }
-                    errorMessage.textContent = errorMsg;
+                    
                     errorMessage.style.display = 'block';
                     
                     // Restaurar botón

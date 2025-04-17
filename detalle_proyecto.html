@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Proyecto - Conecta Comunidad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .project-detail {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .project-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #A95BF5;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+        }
+        .error {
+            color: #ff6b6b;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="project-detail" id="project-container">
+        <div class="loading" id="loading">Cargando proyecto...</div>
+        <h1 id="project-title" style="display: none;"></h1>
+        <img id="project-image" class="project-image" src="" alt="Imagen del proyecto" style="display: none;">
+        <p id="project-category" style="display: none;"></p>
+        <p id="project-description" style="display: none;"></p>
+        <a href="proyectos.html" class="back-button">Volver a proyectos</a>
+    </div>
+
+    <!-- 1. Primero carga la librería Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- 2. Luego tu código JavaScript -->
+    <script>
+        // Espera a que la librería Supabase esté completamente cargada
+        function initApp() {
+            // Inicializa Supabase como variable global
+            window.supabaseClient = supabase.createClient(
+                'https://fbqjjhjstvcbdcpgwems.supabase.co',
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZicWpqaGpzdHZjYmRjcGd3ZW1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5MDQ3ODUsImV4cCI6MjA2MDQ4MDc4NX0.F-MsX8_lTk5fmRhts_eqaByRZaSP1IXpV3KxLpaWxj8'
+            );
+            
+            // Ahora puedes cargar los detalles del proyecto
+            loadProjectDetails();
+        }
+
+        async function loadProjectDetails() {
+            const loadingElement = document.getElementById('loading');
+            const titleElement = document.getElementById('project-title');
+            const imageElement = document.getElementById('project-image');
+            const categoryElement = document.getElementById('project-category');
+            const descriptionElement = document.getElementById('project-description');
+
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const projectId = urlParams.get('id');
+
+                if (!projectId) throw new Error('No se especificó un proyecto');
+
+                const { data: project, error } = await window.supabaseClient
+                    .from('proyectos')
+                    .select('*')
+                    .eq('id', projectId)
+                    .single();
+
+                if (error) throw error;
+                if (!project) throw new Error('Proyecto no encontrado');
+
+                // Mostrar los datos
+                titleElement.textContent = project.nombre;
+                imageElement.src = project.imagen_url;
+                categoryElement.textContent = `Categoría: ${project.categoria}`;
+                descriptionElement.textContent = project.descripcion;
+
+                // Ocultar loading y mostrar contenido
+                loadingElement.style.display = 'none';
+                [titleElement, imageElement, categoryElement, descriptionElement].forEach(el => {
+                    el.style.display = 'block';
+                });
+
+            } catch (error) {
+                loadingElement.style.display = 'none';
+                document.getElementById('project-container').innerHTML = `
+                    <h1 class="error">Error: ${error.message}</h1>
+                    <a href="proyectos.html" class="back-button">Volver a proyectos</a>
+                `;
+                console.error('Error:', error);
+            }
+        }
+
+        // Inicia la aplicación cuando todo esté listo
+        if (typeof supabase !== 'undefined') {
+            initApp();
+        } else {
+            document.addEventListener('supabase-loaded', initApp);
+        }
+    </script>
+</body>
+</html>
