@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Añadir Nuevo Tema</title>
+    <title>Añadir Tema</title>
     <style>
         body {
             margin: 0;
@@ -73,12 +73,13 @@
         }
 
         button:hover {
-            background-color: #7b38b5;
+            background-color: #5e2a8e;
         }
 
         .star {
             position: absolute;
             width: 50px;
+            z-index: -1;
         }
 
         .star1 {
@@ -90,6 +91,86 @@
             bottom: 20px;
             left: 20px;
         }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+                padding: 15px;
+            }
+
+            .form-container {
+                width: 90%;
+                align-items: center;
+            }
+
+            .button-container {
+                margin-left: 0;
+                margin-top: 20px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            button {
+                width: 150px;
+                margin: 5px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .star {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .form-container {
+                width: 100%;
+            }
+
+            input, textarea {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .button-container {
+                width: 100%;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .logo img {
+                width: 100px;
+            }
+        }
+        
+        /* Estilos para mensajes */
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .success {
+            background-color: #4CAF50;
+            display: block;
+        }
+        
+        .error {
+            background-color: #f44336;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -97,25 +178,110 @@
         <img src="imagenes/logo.jpeg" alt="Logo Conecta Comunidad" width="120">
     </div>
     <h1>Añadir Nuevo Tema</h1>
+    
+    <!-- Mensajes de estado -->
+    <div id="message" class="message"></div>
+    
     <div class="container">
         <!-- Formulario a la izquierda -->
         <div class="form-container">
-            <input type="text" placeholder="Nombre del Asunto" id="nombreAsunto">
-            <textarea placeholder="Breve descripción del Asunto" id="descripcionAsunto"></textarea>
+            <input type="text" placeholder="Nombre del Asunto" id="nombreAsunto" required>
+            <textarea placeholder="Breve descripción del Asunto" id="descripcionAsunto" required></textarea>
+            <select id="categoriaTema" style="width: 93%; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                <option value="General">General</option>
+                <option value="Salud">Salud y bienestar</option>
+                <option value="Cultura">Cultura y sociedad</option>
+                <option value="Educacion">Educación</option>
+                <option value="Emprendimiento">Emprendimiento</option>
+            </select>
         </div>
         <!-- Botones a la derecha -->
         <div class="button-container">
-            <button onclick="navigateTo('foro.html')">SUBIR AL FORO</button>
-            <button onclick="navigateTo('foro.html')">BORRAR</button>
-            <button onclick="navigateTo('foro.html')">EDITAR</button>
+            <button onclick="submitTopic()">SUBIR AL FORO</button>
+            <button onclick="clearForm()">BORRAR</button>
+            <button onclick="navigateTo('foro.html')">VOLVER</button>
         </div>
     </div>
     <img src="imagenes/estrella.jpeg" alt="Estrella decorativa" class="star star1">
     <img src="imagenes/triangulo.jpeg" alt="Estrella decorativa" class="star star2">
 
+    <!-- Incluir SDK de Supabase -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+      // Configuración de Supabase
+      window.supabase = supabase.createClient(
+        'https://fbqjjhjstvcbdcpgwems.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZicWpqaGpzdHZjYmRjcGd3ZW1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5MDQ3ODUsImV4cCI6MjA2MDQ4MDc4NX0.F-MsX8_lTk5fmRhts_eqaByRZaSP1IXpV3KxLpaWxj8'
+      );
+        
+        // Mostrar mensaje
+        function showMessage(type, text) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.className = 'message ' + type;
+            messageDiv.textContent = text;
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Navegar a otra página
         function navigateTo(page) {
-            window.open(page, '_blank');
+            window.location.href = page;
+        }
+        
+        // Limpiar formulario
+        function clearForm() {
+            document.getElementById('nombreAsunto').value = '';
+            document.getElementById('descripcionAsunto').value = '';
+            document.getElementById('categoriaTema').value = 'General';
+        }
+        
+        // Enviar tema al foro
+        async function submitTopic() {
+            const title = document.getElementById('nombreAsunto').value.trim();
+            const description = document.getElementById('descripcionAsunto').value.trim();
+            const category = document.getElementById('categoriaTema').value;
+            
+            // Validación
+            if (!title || !description) {
+                showMessage('error', 'Por favor completa todos los campos');
+                return;
+            }
+            
+            try {
+                // Obtener usuario actual
+                const { data: { user }, error: userError } = await supabase.auth.getUser();
+                
+                if (userError || !user) {
+                    throw userError || new Error('No se pudo obtener la información del usuario');
+                }
+                
+                // Insertar tema en la base de datos
+                const { data, error } = await supabase
+                    .from('forum_topics')
+                    .insert([
+                        { 
+                            user_id: user.id,
+                            title: title,
+                            description: description,
+                            category: category
+                        }
+                    ])
+                    .select();
+                
+                if (error) throw error;
+                
+                // Mostrar éxito y redirigir
+                showMessage('success', 'Tema creado exitosamente!');
+                setTimeout(() => {
+                    window.location.href = 'foro.html';
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Error al crear tema:', error);
+                showMessage('error', 'Error al crear tema: ' + (error.message || 'Por favor intenta nuevamente'));
+            }
         }
     </script>
 </body>

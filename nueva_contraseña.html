@@ -11,14 +11,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       background-color: #000;
       color: #fff;
     }
     .container {
       display: flex;
       max-width: 800px;
+      width: 100%;
       background-color: #000;
+      flex-wrap: wrap;
     }
     .left-column {
       display: flex;
@@ -27,13 +29,16 @@
       justify-content: center;
       padding: 20px;
       width: 50%;
+      box-sizing: border-box;
     }
     .logo {
       text-align: center;
       margin-right: 80px;
     }
     .logo img {
-      width: 350px; /* Ajusta el tamaño del logo según sea necesario */
+      width: 350px;
+      max-width: 100%;
+      height: auto;
     }
     .right-column {
       display: flex;
@@ -45,6 +50,7 @@
       background-color: #fff;
       color: #000;
       border-radius: 10px;
+      box-sizing: border-box;
     }
     h1 {
       font-size: 18px;
@@ -72,7 +78,7 @@
     .input-field {
       width: 100%;
       padding: 10px;
-      padding-right: 40px; /* espacio para el ícono */
+      padding-right: 40px;
       border: 1px solid #000;
       border-radius: 20px;
       font-size: 16px;
@@ -112,7 +118,7 @@
       margin-top: 10px;
       width: 100%;
       padding: 10px;
-      border: 1px solid #000; /* Borde en negro */
+      border: 1px solid #000;
       border-radius: 20px;
       background-color: #fff;
       color: #000;
@@ -123,6 +129,48 @@
     }
     .back-btn:hover {
       background-color: #f0f0f0;
+    }
+
+    /* Media Queries para Responsive */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .left-column, .right-column {
+        width: 100%;
+        padding: 15px;
+      }
+      .left-column {
+        order: 2;
+        padding-top: 0;
+      }
+      .right-column {
+        order: 1;
+        border-radius: 0;
+      }
+      .logo {
+        margin-right: 0;
+        margin-top: 20px;
+      }
+      .logo img {
+        width: 250px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .input-field {
+        font-size: 14px;
+      }
+      .submit-btn, .back-btn {
+        font-size: 14px;
+      }
+      h1 {
+        font-size: 16px;
+      }
+      .form-container p {
+        font-size: 13px;
+      }
     }
   </style>
 </head>

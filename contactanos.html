@@ -14,6 +14,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         /* Navbar */
@@ -21,39 +22,40 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
             background-color: #000;
+            width: 100%;
         }
 
         .header {
             background-color: #000;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             position: relative;
             width: 100%;
         }
 
         .header img {
-            height: 40px;
+            height: 35px;
             vertical-align: middle;
         }
 
         .header-title {
             display: inline-block;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             color: #FFF;
-            margin-left: 10px;
+            margin-left: 8px;
             vertical-align: middle;
         }
 
         /* User Icon */
         .user-icon {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
+            top: 15px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
             background-color: #333;
             border-radius: 50%;
             display: flex;
@@ -72,15 +74,17 @@
         nav {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            padding: 10px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 8px 0;
         }
 
         nav a {
             color: #FFF;
             text-decoration: none;
-            font-size: 18px;
-            padding-bottom: 5px;
+            font-size: 16px;
+            padding-bottom: 3px;
+            white-space: nowrap;
         }
 
         nav a:hover,
@@ -91,19 +95,18 @@
 
         /* Contenido de Contacto */
         .contact-container {
-            width: 90%;
+            width: 95%;
             max-width: 800px;
-            margin-top: 20px;
+            margin-top: 15px;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .contact-info {
-            flex: 1;
             color: #fff;
-            font-size: 16px;
-            padding-right: 20px;
+            font-size: 15px;
+            padding: 0 10px;
         }
 
         .contact-info a {
@@ -117,17 +120,17 @@
 
         /* Formulario de Contacto */
         .contact-form {
-            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
+            padding: 0 10px;
         }
 
         .contact-form input,
         .contact-form textarea {
             width: 100%;
-            padding: 10px;
-            border-radius: 20px;
+            padding: 8px;
+            border-radius: 15px;
             border: none;
             outline: none;
             font-size: 14px;
@@ -143,9 +146,9 @@
             background-color: #9c4de4;
             border: none;
             color: #fff;
-            font-size: 16px;
-            padding: 10px;
-            border-radius: 20px;
+            font-size: 15px;
+            padding: 8px;
+            border-radius: 15px;
             cursor: pointer;
             font-weight: bold;
         }
@@ -157,16 +160,97 @@
         /* Footer */
         footer {
             margin-top: 20px;
-            font-size: 14px;
+            font-size: 12px;
             color: #aaa;
             text-align: center;
+            padding: 10px;
+            width: 100%;
+        }
+
+        /* Media Queries para hacerlo responsive */
+        @media (min-width: 600px) {
+            .header {
+                padding: 20px;
+            }
+            
+            .header img {
+                height: 40px;
+            }
+            
+            .header-title {
+                font-size: 24px;
+                margin-left: 10px;
+            }
+            
+            .user-icon {
+                width: 40px;
+                height: 40px;
+                top: 20px;
+                right: 20px;
+            }
+            
+            nav {
+                gap: 15px;
+                padding: 10px 0;
+            }
+            
+            nav a {
+                font-size: 18px;
+            }
+            
+            .contact-container {
+                flex-direction: row;
+                margin-top: 20px;
+                gap: 30px;
+            }
+            
+            .contact-info {
+                font-size: 16px;
+                padding-right: 20px;
+            }
+            
+            .contact-form {
+                gap: 10px;
+            }
+            
+            .contact-form input,
+            .contact-form textarea {
+                padding: 10px;
+                border-radius: 20px;
+                font-size: 15px;
+            }
+            
+            .contact-form button {
+                font-size: 16px;
+                padding: 10px;
+                border-radius: 20px;
+            }
+            
+            footer {
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .contact-container {
+                width: 90%;
+                max-width: 1000px;
+            }
+            
+            .contact-info {
+                flex: 1;
+            }
+            
+            .contact-form {
+                flex: 1;
+            }
         }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <img src="imagenes/logo1.jpeg" alt="Conecta Comunidad Logo"class="header-title">Conecta Comunidad
+        <img src="imagenes/logo1.jpeg" alt="Conecta Comunidad Logo" class="header-title">Conecta Comunidad
          
         
         <!-- Ícono de usuario en la esquina superior derecha -->

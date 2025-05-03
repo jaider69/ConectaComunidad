@@ -108,6 +108,189 @@
         .login-link a:hover {
             text-decoration: underline;
         }
+
+        /* Media Queries para hacerlo responsive */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .logo-section {
+                margin-right: 50px;
+            }
+            
+            .logo-section img {
+                width: 300px;
+            }
+            
+            .form-section {
+                padding: 30px;
+                width: 320px;
+            }
+            
+            .form-section h2 {
+                font-size: 23px;
+            }
+            
+            .form-section p {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .logo-section {
+                margin-right: 40px;
+            }
+            
+            .logo-section img {
+                width: 280px;
+            }
+            
+            .logo-section h1 {
+                font-size: 30px;
+            }
+            
+            .form-section {
+                padding: 25px;
+                width: 300px;
+            }
+            
+            .button {
+                font-size: 15px;
+                padding: 8px;
+            }
+            
+            .login-link {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
+            }
+            
+            .logo-section {
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .logo-section img {
+                width: 250px;
+            }
+            
+            .logo-section h1 {
+                margin-top: 20px;
+                font-size: 28px;
+            }
+            
+            .form-section {
+                width: 90%;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                padding: 20px;
+            }
+            
+            .logo-section img {
+                width: 220px;
+            }
+            
+            .logo-section h1 {
+                font-size: 26px;
+            }
+            
+            .form-section {
+                padding: 20px 15px;
+            }
+            
+            .form-section h2 {
+                font-size: 22px;
+            }
+            
+            .form-section p {
+                font-size: 15px;
+                margin-bottom: 25px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 25px;
+            }
+            
+            .button {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-section img {
+                width: 200px;
+            }
+            
+            .logo-section h1 {
+                font-size: 24px;
+                letter-spacing: 1px;
+            }
+            
+            .form-section {
+                padding: 18px 12px;
+            }
+            
+            .form-section h2 {
+                font-size: 20px;
+            }
+            
+            .form-section p {
+                font-size: 14px;
+            }
+            
+            .button {
+                width: 90%;
+                font-size: 14px;
+                padding: 7px;
+            }
+            
+            .login-link {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .logo-section img {
+                width: 180px;
+            }
+            
+            .logo-section h1 {
+                font-size: 22px;
+            }
+            
+            .form-section h2 {
+                font-size: 18px;
+            }
+            
+            .form-section p {
+                font-size: 13px;
+            }
+            
+            .button {
+                font-size: 13px;
+                padding: 6px;
+            }
+            
+            .login-link {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -115,7 +298,6 @@
         <!-- Logo Section -->
         <div class="logo-section">
             <img src="imagenes/logo.jpeg" alt="Conecta Comunidad Logo">
-
         </div>
 
         <!-- Form Section -->
@@ -131,7 +313,5 @@
             </div>
         </div>
     </div>
-
-
 </body>
 </html>

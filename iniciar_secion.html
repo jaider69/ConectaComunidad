@@ -177,7 +177,43 @@
       100% { transform: rotate(360deg); }
     }
     
-    /* Responsividad */
+    /* Media Queries para hacerlo responsive */
+    @media (max-width: 1024px) {
+      .container {
+        padding: 15px;
+      }
+      
+      .logo {
+        margin-right: 50px;
+      }
+      
+      .logo img {
+        width: 300px;
+      }
+      
+      .login-form {
+        padding: 30px 20px;
+      }
+    }
+    
+    @media (max-width: 900px) {
+      .logo {
+        margin-right: 40px;
+      }
+      
+      .logo img {
+        width: 280px;
+      }
+      
+      .login-form h2 {
+        font-size: 1.4em;
+      }
+      
+      .input-field {
+        font-size: 0.95em;
+      }
+    }
+    
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -188,6 +224,97 @@
       }
       .login-form {
         width: 90%;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+        height: auto;
+        min-height: 100vh;
+        align-items: flex-start;
+        padding-top: 30px;
+      }
+      
+      .container {
+        width: 100%;
+      }
+      
+      .logo img {
+        width: 250px;
+      }
+      
+      .login-form {
+        padding: 25px 15px;
+      }
+      
+      .login-form h2 {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+      }
+      
+      .input-group {
+        margin-bottom: 12px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .logo img {
+        width: 200px;
+      }
+      
+      .login-form {
+        padding: 20px 15px;
+      }
+      
+      .login-form h2 {
+        font-size: 1.2em;
+      }
+      
+      .input-field {
+        padding: 8px;
+        padding-right: 35px;
+        font-size: 0.9em;
+      }
+      
+      .toggle-password {
+        font-size: 16px;
+        right: 10px;
+      }
+      
+      .login-form a {
+        font-size: 0.85em;
+      }
+      
+      .terms-group {
+        font-size: 0.85em;
+      }
+      
+      .submit-button {
+        padding: 8px;
+        font-size: 0.9em;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .logo img {
+        width: 180px;
+      }
+      
+      .login-form {
+        padding: 18px 12px;
+      }
+      
+      .login-form h2 {
+        font-size: 1.1em;
+      }
+      
+      .input-field {
+        font-size: 0.85em;
+      }
+      
+      .terms-group {
+        font-size: 0.8em;
       }
     }
   </style>
@@ -290,7 +417,7 @@
     const nonCheckboxInputs = Array.from(document.querySelectorAll('input')).filter(input => input.type !== 'checkbox');
     nonCheckboxInputs.forEach(function(input, index, inputs) {
       input.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter') {  // Error corregido aquí (comillas rectas)
           e.preventDefault();
           if (index < inputs.length - 1) {
             inputs[index + 1].focus();

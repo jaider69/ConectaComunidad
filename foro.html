@@ -121,6 +121,18 @@
             width: 50px;
             height: 50px;
         }
+
+        .loading {
+            color: #CCC;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+
+        .error-message {
+            color: #f44336;
+            font-size: 18px;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -142,40 +154,9 @@
     <div class="foro">
         <h1>Foro</h1>
 
-        <div class="foro-item">
-            <img src="imagenes/salud.jpeg" alt="Salud y Bienestar">
-            <div>
-                <h2>Salud y bienestar</h2>
-                <p>La nutrición adecuada, la salud mental, la gestión del estrés...</p>
-                <button onclick="navigateTo('categoria_foro.html')">VER MÁS</button>
-            </div>
-        </div>
-
-        <div class="foro-item">
-            <img src="imagenes/salud.jpeg" alt="Cultura y Sociedad">
-            <div>
-                <h2>Cultura y sociedad</h2>
-                <p>Explorar y discutir diversos aspectos de la cultura y la sociedad...</p>
-                <button onclick="navigateTo('categoria_foro.html')">VER MÁS</button>
-            </div>
-        </div>
-
-        <div class="foro-item">
-            <img src="imagenes/salud.jpeg" alt="Educación">
-            <div>
-                <h2>Educación</h2>
-                <p>Conocimientos sobre métodos educativos, experiencias...</p>
-                <button onclick="navigateTo('categoria_foro.html')">VER MÁS</button>
-            </div>
-        </div>
-
-        <div class="foro-item">
-            <img src="imagenes/salud.jpeg" alt="Emprendimiento">
-            <div>
-                <h2>Emprendimiento</h2>
-                <p>Los aspirantes a emprendedores y propietarios de pequeños negocios...</p>
-                <button onclick="navigateTo('categoria_foro.html')">VER MÁS</button>
-            </div>
+        <!-- Contenedor dinámico para los temas -->
+        <div id="temas-container">
+            <div class="loading">Cargando temas del foro...</div>
         </div>
 
         <div class="add-topic" onclick="window.location.href='añadir_tema.html';">AÑADIR NUEVO TEMA</div>
@@ -183,11 +164,75 @@
 
     <img src="imagenes/robot.jpeg" alt="Icono del robot" class="robot-icon">
 
+    <!-- Incluir SDK de Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+      // Configuración de Supabase
+      window.supabase = supabase.createClient(
+        'https://fbqjjhjstvcbdcpgwems.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZicWpqaGpzdHZjYmRjcGd3ZW1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5MDQ3ODUsImV4cCI6MjA2MDQ4MDc4NX0.F-MsX8_lTk5fmRhts_eqaByRZaSP1IXpV3KxLpaWxj8'
+      );
+
+        // Función para navegar
         function navigateTo(url) {
-            window.location.href = url; // Cambia a una nueva página en la misma pestaña
+            window.location.href = url;
         }
+
+        // Función para cargar los temas del foro
+        async function loadForumTopics() {
+            const container = document.getElementById('temas-container');
+            
+            try {
+                // Mostrar mensaje de carga
+                container.innerHTML = '<div class="loading">Cargando temas del foro...</div>';
+                
+                // Obtener temas de Supabase
+                const { data: topics, error } = await supabase
+                    .from('forum_topics')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) throw error;
+                
+                // Limpiar contenedor
+                container.innerHTML = '';
+                
+                // Si no hay temas
+                if (!topics || topics.length === 0) {
+                    container.innerHTML = '<div class="error-message">No hay temas disponibles todavía. ¡Sé el primero en crear uno!</div>';
+                    return;
+                }
+                
+                // Añadir cada tema al DOM
+                topics.forEach(topic => {
+                    const topicElement = document.createElement('div');
+                    topicElement.className = 'foro-item';
+                    
+                    // Determinar la imagen según la categoría
+                    let imageSrc = 'imagenes/salud.jpeg';
+                    if (topic.category === 'Educacion') imageSrc = 'imagenes/educacion.jpeg';
+                    if (topic.category === 'Emprendimiento') imageSrc = 'imagenes/emprendimiento.jpeg';
+                    if (topic.category === 'Cultura') imageSrc = 'imagenes/cultura.jpeg';
+                    
+                    topicElement.innerHTML = `
+                        <img src="${imageSrc}" alt="${topic.category}">
+                        <div>
+                            <h2>${topic.title}</h2>
+                            <p>${topic.description}</p>
+                            <button onclick="navigateTo('categoria_foro.html?topic_id=${topic.id}')">VER MÁS</button>
+                        </div>
+                    `;
+                    container.appendChild(topicElement);
+                });
+                
+            } catch (error) {
+                console.error('Error al cargar temas:', error);
+                container.innerHTML = `<div class="error-message">Error al cargar los temas: ${error.message}</div>`;
+            }
+        }
+
+        // Cargar los temas cuando la página se cargue
+        document.addEventListener('DOMContentLoaded', loadForumTopics);
     </script>
 </body>
 </html>
-

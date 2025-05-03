@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle del Proyecto - Conecta Comunidad</title>
+    <title>Detalle del Proyecto</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,6 +44,51 @@
             color: #ff6b6b;
             text-align: center;
             padding: 20px;
+
+            #project-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #A95BF5;
+        }
+        #project-category {
+            color: #ccc;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        #project-description {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            body {
+                padding: 30px;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            .project-detail {
+                padding: 30px;
+            }
+            #project-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        }
+        @media (max-width: 480px) {
+            .project-detail {
+                padding: 15px;
+            }
+            #project-title {
+                font-size: 1.5rem;
+            }
+            .back-button {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
 </head>

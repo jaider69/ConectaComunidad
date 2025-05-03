@@ -165,6 +165,45 @@
             }
         }
 
+        /* Media Queries para hacerlo responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                padding: 150px 30px 50px;
+            }
+            
+            .title {
+                font-size: 42px;
+            }
+            
+            .description {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 15px 30px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            
+            .main-content {
+                padding: 140px 30px 40px;
+                gap: 40px;
+            }
+            
+            .title {
+                font-size: 38px;
+            }
+        }
+
         @media (max-width: 768px) {
             .main-content {
                 flex-direction: column;
@@ -173,8 +212,7 @@
             }
 
             .navbar {
-                padding: 20px;
-                flex-wrap: wrap;
+                padding: 15px 20px;
             }
 
             .nav-links {
@@ -187,6 +225,87 @@
 
             .title {
                 font-size: 36px;
+            }
+            
+            .text-content {
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px;
+            }
+            
+            .logo-container {
+                margin-bottom: 10px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+                margin-bottom: 10px;
+            }
+            
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .main-content {
+                padding: 180px 15px 40px;
+            }
+            
+            .title {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container span {
+                font-size: 14px;
+            }
+            
+            .nav-links a {
+                font-size: 14px;
+            }
+            
+            .btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .title {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .description {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .nav-links {
+                gap: 10px;
+            }
+            
+            .auth-buttons {
+                gap: 10px;
+            }
+            
+            .title {
+                font-size: 24px;
             }
         }
     </style>

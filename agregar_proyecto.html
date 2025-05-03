@@ -64,6 +64,33 @@
             margin-top: 10px;
             display: none;
         }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 20px;
+                padding: 15px;
+                border-radius: 0;
+            }
+            input, textarea, select, button {
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+                min-height: 100vh;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            button {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -94,27 +121,15 @@
         </form>
     </div>
 
-    <!DOCTYPE html>
-<html lang="es">
-<head>
-    <!-- ... (mantén tu head existente) ... -->
-</head>
-<body>
-    <!-- ... (mantén tu HTML existente) ... -->
-
-    <!-- Cambia el orden de los scripts -->
-    <!-- Primero carga Supabase -->
+    <!-- Scripts en el orden correcto -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Configuración de Supabase en un ámbito global
-        window.supabase = supabase.createClient(
+        // Configuración de Supabase
+        const supabase = supabase.createClient(
             'https://fbqjjhjstvcbdcpgwems.supabase.co',
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZicWpqaGpzdHZjYmRjcGd3ZW1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5MDQ3ODUsImV4cCI6MjA2MDQ4MDc4NX0.F-MsX8_lTk5fmRhts_eqaByRZaSP1IXpV3KxLpaWxj8'
         );
-    </script>
 
-    <!-- Luego tu código de aplicación -->
-    <script>
         // Espera a que todo el DOM esté cargado
         document.addEventListener('DOMContentLoaded', function() {
             // Vista previa de la imagen
@@ -136,7 +151,7 @@
                 
                 try {
                     // Obtener usuario actual
-                    const { data: { user }, error: userError } = await window.supabase.auth.getUser();
+                    const { data: { user }, error: userError } = await supabase.auth.getUser();
                     if (userError || !user) {
                         alert('Debes iniciar sesión para agregar un proyecto');
                         window.location.href = 'login.html';
@@ -163,19 +178,19 @@
                     const fileName = `${user.id}-${Date.now()}.${fileExt}`;
                     const filePath = `proyectos/${fileName}`;
                     
-                    const { error: uploadError } = await window.supabase.storage
+                    const { error: uploadError } = await supabase.storage
                         .from('proyectos')
                         .upload(filePath, imagenFile);
                     
                     if (uploadError) throw uploadError;
                     
                     // Obtener URL pública
-                    const { data: { publicUrl } } = window.supabase.storage
+                    const { data: { publicUrl } } = supabase.storage
                         .from('proyectos')
                         .getPublicUrl(filePath);
                     
                     // Guardar proyecto
-                    const { error } = await window.supabase
+                    const { error } = await supabase
                         .from('proyectos')
                         .insert([{
                             nombre,

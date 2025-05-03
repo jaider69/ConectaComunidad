@@ -11,13 +11,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             background-color: #000;
             color: #fff;
         }
         .container {
             display: flex;
+            flex-direction: column;
             max-width: 800px;
+            width: 100%;
             background-color: #000;
         }
         .left-column {
@@ -26,14 +28,17 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            width: 50%;
+            width: 100%;
+            box-sizing: border-box;
         }
         .logo {
             text-align: center;
-            margin-right: 80px;
+            margin-right: 0;
         }
         .logo img {
-            width: 350px;
+            max-width: 350px;
+            width: 100%;
+            height: auto;
         }
         .right-column {
             display: flex;
@@ -41,16 +46,18 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            width: 50%;
+            width: 100%;
             background-color: #fff;
             color: #000;
             border-radius: 10px;
+            box-sizing: border-box;
         }
         h1 {
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 20px;
             color: #000;
+            text-align: center;
         }
         .form-container {
             text-align: center;
@@ -60,13 +67,17 @@
             font-size: 14px;
             margin-bottom: 20px;
             color: #000;
+            text-align: center;
         }
         .input-container {
             width: 100%;
             text-align: center;
+            padding: 0 10px;
+            box-sizing: border-box;
         }
         .input-container input {
             width: 100%;
+            max-width: 400px;
             padding: 10px;
             margin-top: 10px;
             border-radius: 30px;
@@ -83,6 +94,7 @@
         .submit-btn, .back-btn {
             margin-top: 20px;
             width: 100%;
+            max-width: 400px;
             padding: 10px;
             font-size: 16px;
             font-weight: bold;
@@ -104,6 +116,40 @@
         }
         .back-btn:hover {
             background-color: #f0f0f0;
+        }
+
+        /* Media queries para diseño responsive */
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+            }
+            .left-column {
+                width: 50%;
+                padding: 40px;
+            }
+            .right-column {
+                width: 50%;
+            }
+            .logo {
+                margin-right: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                max-width: 250px;
+            }
+            h1 {
+                font-size: 16px;
+            }
+            .form-container p {
+                font-size: 13px;
+            }
+            .input-container input,
+            .submit-btn, 
+            .back-btn {
+                font-size: 14px;
+            }
         }
     </style>
 </head>

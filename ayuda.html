@@ -36,10 +36,26 @@
             padding-bottom: 5px;
         }
 
+        nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 10px 0;
+        }
+
+        nav a {
+        color: #FFF;
+        text-decoration: none;
+        font-size: 18px;
+        padding-bottom: 5px;
+        text-transform: lowercase; /* Para mantener todo en minúsculas */
+        }
+
         nav a:hover,
         nav a.active {
-            color: #9c4be7;
-            border-bottom: 2px solid #9c4be7;
+        color: #9c4be7;
+        border-bottom: 2px solid #9c4be7;
+
         }
         .title {
             font-size: 36px;
@@ -136,18 +152,15 @@
     <header class="header">
         <img src="imagenes/logo1.jpeg" alt="Conecta Comunidad Logo" class >Conecta Comunidad
         <!-- Barra de navegación -->
-    <nav class="navbar">
-        <div class="nav-links">
-            <a href="bienvenido.html">inicio</a> &nbsp;
-            <a href="proyectos.html">proyectos</a> &nbsp;
-            <a href="foro.html">foro</a> &nbsp;
-            <a href="chat.html">chat</a> &nbsp;
-            <a href="contactanos.html">contactanos</a> &nbsp;
-            <a href="ayuda.html"class="active">ayuda</a>
-        </div>
+        <nav class="navbar">
+            <a href="bienvenido.html">inicio</a>
+            <a href="proyectos.html">proyectos</a>
+            <a href="foro.html">foro</a>
+            <a href="chat.html">chat</a>
+            <a href="contactanos.html">contactanos</a>
+            <a href="ayuda.html" class="active">ayuda</a>
+        </nav>
         
-
-    </nav>
         <div class="user-icon">
             <a href="index.html" target="_blank"></a>
             <img src="imagenes/usuario.jpeg" alt="User Icon">

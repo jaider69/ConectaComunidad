@@ -22,6 +22,7 @@
             justify-content: center;
             gap: 20px;
             padding: 10px 0;
+            flex-wrap: wrap;
         }
         nav a {
             color: #FFF;
@@ -135,6 +136,147 @@
             text-align: center;
             padding: 20px;
         }
+
+        /* Media Queries para hacerlo responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            nav {
+                gap: 15px;
+                padding: 8px 0;
+            }
+            
+            nav a {
+                font-size: 16px;
+            }
+            
+            .header img {
+                width: 35px;
+            }
+            
+            .search-bar {
+                width: 80%;
+                margin: 15px auto;
+            }
+            
+            .search-bar input {
+                font-size: 15px;
+                padding: 8px;
+                padding-right: 35px;
+            }
+            
+            .search-bar button img {
+                width: 25px;
+            }
+            
+            .category-title {
+                font-size: 18px;
+                margin-top: 25px;
+            }
+            
+            .project-card {
+                width: 280px;
+                padding: 12px;
+            }
+            
+            .project-card img {
+                height: 160px;
+            }
+            
+            .add-project-btn {
+                width: 180px;
+                font-size: 15px;
+                margin: 15px auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            nav {
+                gap: 10px;
+                padding: 5px 0;
+            }
+            
+            nav a {
+                font-size: 14px;
+            }
+            
+            .header img {
+                width: 30px;
+            }
+            
+            .search-bar {
+                width: 90%;
+                margin: 10px auto;
+            }
+            
+            .search-bar input {
+                font-size: 14px;
+                padding: 7px;
+                padding-right: 30px;
+                width: 90%;
+            }
+            
+            .search-bar button img {
+                width: 20px;
+            }
+            
+            .projects-section {
+                padding: 10px;
+            }
+            
+            .category-title {
+                font-size: 16px;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .project-category {
+                margin-bottom: 30px;
+            }
+            
+            .projects-container {
+                gap: 15px;
+            }
+            
+            .project-card {
+                width: 100%;
+                max-width: 300px;
+                padding: 10px;
+            }
+            
+            .project-card img {
+                height: 150px;
+            }
+            
+            .project-title {
+                font-size: 15px;
+            }
+            
+            .project-description {
+                font-size: 13px;
+            }
+            
+            .view-more-btn, .add-project-btn {
+                padding: 8px;
+                font-size: 14px;
+            }
+            
+            .add-project-btn {
+                width: 160px;
+                margin: 15px auto;
+            }
+            
+            .loading, .error {
+                padding: 30px 10px;
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -167,116 +309,116 @@
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  // Configuración de Supabase
-  window.supabase = supabase.createClient(
-    'https://fbqjjhjstvcbdcpgwems.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZicWpqaGpzdHZjYmRjcGd3ZW1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5MDQ3ODUsImV4cCI6MjA2MDQ4MDc4NX0.F-MsX8_lTk5fmRhts_eqaByRZaSP1IXpV3KxLpaWxj8'
-  );
+    <script>
+      // Configuración de Supabase
+      window.supabase = supabase.createClient(
+        'https://fbqjjhjstvcbdcpgwems.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZicWpqaGpzdHZjYmRjcGd3ZW1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5MDQ3ODUsImV4cCI6MjA2MDQ4MDc4NX0.F-MsX8_lTk5fmRhts_eqaByRZaSP1IXpV3KxLpaWxj8'
+      );
 
-  // Función para mostrar proyectos
-  function mostrarProyectos(proyectos) {
-    const proyectosPorCategoria = proyectos.reduce((acc, proyecto) => {
-      if (!acc[proyecto.categoria]) acc[proyecto.categoria] = [];
-      acc[proyecto.categoria].push(proyecto);
-      return acc;
-    }, {});
+      // Función para mostrar proyectos
+      function mostrarProyectos(proyectos) {
+        const proyectosPorCategoria = proyectos.reduce((acc, proyecto) => {
+          if (!acc[proyecto.categoria]) acc[proyecto.categoria] = [];
+          acc[proyecto.categoria].push(proyecto);
+          return acc;
+        }, {});
 
-    let html = '';
-    for (const [categoria, proyectos] of Object.entries(proyectosPorCategoria)) {
-      html += `
-        <div class="project-category">
-          <h2 class="category-title">${categoria}</h2>
-          <div class="projects-container">
-            ${proyectos.map(proyecto => `
-              <div class="project-card">
-                <img src="${proyecto.imagen_url}" alt="${proyecto.nombre}" class="project-image">
-                <h3>${proyecto.nombre}</h3>
-                <p class="project-description">${proyecto.descripcion.substring(0, 100)}...</p>
-                <a href="detalle_proyecto.html?id=${proyecto.id}" class="view-more-btn">Ver más</a>
+        let html = '';
+        for (const [categoria, proyectos] of Object.entries(proyectosPorCategoria)) {
+          html += `
+            <div class="project-category">
+              <h2 class="category-title">${categoria}</h2>
+              <div class="projects-container">
+                ${proyectos.map(proyecto => `
+                  <div class="project-card">
+                    <img src="${proyecto.imagen_url}" alt="${proyecto.nombre}" class="project-image">
+                    <h3>${proyecto.nombre}</h3>
+                    <p class="project-description">${proyecto.descripcion.substring(0, 100)}...</p>
+                    <a href="detalle_proyecto.html?id=${proyecto.id}" class="view-more-btn">Ver más</a>
+                  </div>
+                `).join('')}
               </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
-    }
-    document.getElementById("project-list").innerHTML = html;
-  }
-
-  // Función para cargar proyectos
-  async function cargarProyectos() {
-    try {
-      document.getElementById("project-list").innerHTML = `
-        <div class="loading">Cargando proyectos...</div>
-      `;
-
-      const { data: proyectos, error } = await supabase
-        .from('proyectos')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-
-      if (!proyectos || proyectos.length === 0) {
-        document.getElementById("project-list").innerHTML = `
-          <p class="error">No hay proyectos disponibles</p>
-        `;
-        return;
+            </div>
+          `;
+        }
+        document.getElementById("project-list").innerHTML = html;
       }
 
-      mostrarProyectos(proyectos);
-    } catch (error) {
-      console.error("Error al cargar proyectos:", error);
-      document.getElementById("project-list").innerHTML = `
-        <p class="error">Error al cargar proyectos: ${error.message}</p>
-      `;
-    }
-  }
+      // Función para cargar proyectos
+      async function cargarProyectos() {
+        try {
+          document.getElementById("project-list").innerHTML = `
+            <div class="loading">Cargando proyectos...</div>
+          `;
 
-  // Función para buscar proyectos
-  async function filtrarProyectos() {
-    const searchTerm = document.getElementById('search').value.toLowerCase().trim();
-    
-    if (!searchTerm) {
-      cargarProyectos();
-      return;
-    }
+          const { data: proyectos, error } = await supabase
+            .from('proyectos')
+            .select('*')
+            .order('created_at', { ascending: false });
 
-    try {
-      document.getElementById("project-list").innerHTML = `
-        <div class="loading">Buscando proyectos...</div>
-      `;
+          if (error) throw error;
 
-      const { data: proyectos, error } = await supabase
-        .from('proyectos')
-        .select('*')
-        .or(`nombre.ilike.%${searchTerm}%,categoria.ilike.%${searchTerm}%`)
-        .order('created_at', { ascending: false });
+          if (!proyectos || proyectos.length === 0) {
+            document.getElementById("project-list").innerHTML = `
+              <p class="error">No hay proyectos disponibles</p>
+            `;
+            return;
+          }
 
-      if (error) throw error;
-
-      if (!proyectos || proyectos.length === 0) {
-        document.getElementById("project-list").innerHTML = `
-          <p class="error">No se encontraron proyectos para "${searchTerm}"</p>
-        `;
-        return;
+          mostrarProyectos(proyectos);
+        } catch (error) {
+          console.error("Error al cargar proyectos:", error);
+          document.getElementById("project-list").innerHTML = `
+            <p class="error">Error al cargar proyectos: ${error.message}</p>
+          `;
+        }
       }
 
-      mostrarProyectos(proyectos);
-    } catch (error) {
-      console.error("Error al buscar proyectos:", error);
-      document.getElementById("project-list").innerHTML = `
-        <p class="error">Error al buscar: ${error.message}</p>
-      `;
-    }
-  }
+      // Función para buscar proyectos
+      async function filtrarProyectos() {
+        const searchTerm = document.getElementById('search').value.toLowerCase().trim();
+        
+        if (!searchTerm) {
+          cargarProyectos();
+          return;
+        }
 
-  // Event listeners
-  document.addEventListener('DOMContentLoaded', cargarProyectos);
-  document.querySelector('.search-bar button').addEventListener('click', filtrarProyectos);
-  document.getElementById('search').addEventListener('keyup', function(e) {
-    if (e.key === 'Enter') filtrarProyectos();
-  });
-</script>
+        try {
+          document.getElementById("project-list").innerHTML = `
+            <div class="loading">Buscando proyectos...</div>
+          `;
+
+          const { data: proyectos, error } = await supabase
+            .from('proyectos')
+            .select('*')
+            .or(`nombre.ilike.%${searchTerm}%,categoria.ilike.%${searchTerm}%`)
+            .order('created_at', { ascending: false });
+
+          if (error) throw error;
+
+          if (!proyectos || proyectos.length === 0) {
+            document.getElementById("project-list").innerHTML = `
+              <p class="error">No se encontraron proyectos para "${searchTerm}"</p>
+            `;
+            return;
+          }
+
+          mostrarProyectos(proyectos);
+        } catch (error) {
+          console.error("Error al buscar proyectos:", error);
+          document.getElementById("project-list").innerHTML = `
+            <p class="error">Error al buscar: ${error.message}</p>
+          `;
+        }
+      }
+
+      // Event listeners
+      document.addEventListener('DOMContentLoaded', cargarProyectos);
+      document.querySelector('.search-bar button').addEventListener('click', filtrarProyectos);
+      document.getElementById('search').addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') filtrarProyectos();
+      });
+    </script>
 </body>
 </html>
